@@ -1,4 +1,4 @@
-const CACHE = 'hybrid-training-v5';
+const CACHE = 'hybrid-training-v6-diagnostic';
 const APP_SHELL = [
   './', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png',
   'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap',
@@ -15,14 +15,17 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   if (event.request.mode === 'navigate') {
-    event.respondWith(fetch(event.request).then(response => {
-      const copy = response.clone(); caches.open(CACHE).then(c => c.put('./index.html', copy)); return response;
+    event.respondWith(fetch(event.request, {cache:'no-store'}).then(response => {
+      const copy = response.clone();
+      caches.open(CACHE).then(c => c.put('./index.html', copy));
+      return response;
     }).catch(() => caches.match('./index.html')));
     return;
   }
   event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
     if (response && (response.ok || response.type === 'opaque')) {
-      const copy = response.clone(); caches.open(CACHE).then(c => c.put(event.request, copy));
+      const copy = response.clone();
+      caches.open(CACHE).then(c => c.put(event.request, copy));
     }
     return response;
   })));

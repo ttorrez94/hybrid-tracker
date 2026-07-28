@@ -13,7 +13,7 @@
 <title>Hybrid Training</title>
 <script>
 (function(){
-  var BUILD = "2026-07-28-v5";
+  var BUILD = "2026-07-28-v6-diagnostic";
   var KEY = "hybrid-training-build";
   try {
     if (localStorage.getItem(KEY) !== BUILD) {
@@ -49,7 +49,7 @@ input[type="number"] { -moz-appearance:textfield; }
 </head>
 <body>
 <div id="boot-status" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0f1115;color:#9ca3af;font:600 14px -apple-system,BlinkMacSystemFont,sans-serif;z-index:9999">Loading Hybrid Training…</div>
-<div id="root"></div><div id="build-version" style="display:none">2026-07-28-v4</div>
+<div id="root"></div><div id="build-version" style="display:none">2026-07-28-v6-diagnostic</div>
 <script>
 (function(){
   function showFatal(message, detail){
@@ -2271,16 +2271,30 @@ function AddOnView({ addonKey, label, data, onChange, history, monday, onExercis
 }
 
 class AppErrorBoundary extends React.Component {
-  constructor(props){ super(props); this.state={error:null}; }
+  constructor(props){ super(props); this.state={error:null, componentStack:""}; }
   static getDerivedStateFromError(error){ return {error}; }
-  componentDidCatch(error, info){ console.error("App render failed", error, info); }
+  componentDidCatch(error, info){
+    console.error("App render failed", error, info);
+    this.setState({componentStack: info?.componentStack || ""});
+  }
   render(){
     if(!this.state.error) return this.props.children;
+    const error = this.state.error;
+    const details = [
+      "BUILD: 2026-07-28-v6-diagnostic",
+      "MESSAGE: " + String(error?.message || error),
+      "",
+      "STACK:",
+      String(error?.stack || "No JavaScript stack available"),
+      "",
+      "REACT COMPONENT STACK:",
+      String(this.state.componentStack || "No React component stack available")
+    ].join("\n");
     return <div style={{minHeight:"100vh",background:"#0f1115",color:"#e8eaed",padding:24,fontFamily:"-apple-system,BlinkMacSystemFont,sans-serif"}}>
-      <h1 style={{fontSize:20,marginBottom:10}}>Hybrid Training needs a repair</h1>
-      <p style={{color:"#9ca3af",lineHeight:1.5,marginBottom:16}}>Saved data from an older version caused a display error. Your history remains stored separately.</p>
-      <button onClick={()=>{localStorage.removeItem(STORAGE_KEYS.state);location.reload();}} style={{padding:"11px 14px",border:0,borderRadius:9,background:"#6366f1",color:"white",fontWeight:700}}>Repair app state</button>
-      <pre style={{whiteSpace:"pre-wrap",color:"#6b7280",fontSize:11,marginTop:18}}>{String(this.state.error?.message||this.state.error)}</pre>
+      <h1 style={{fontSize:20,marginBottom:10}}>Hybrid Training diagnostic</h1>
+      <p style={{color:"#9ca3af",lineHeight:1.5,marginBottom:16}}>Take a screenshot of the entire error below. Do not press Repair app state.</p>
+      <button onClick={()=>location.reload()} style={{padding:"11px 14px",border:0,borderRadius:9,background:"#6366f1",color:"white",fontWeight:700}}>Reload app</button>
+      <pre style={{whiteSpace:"pre-wrap",overflowWrap:"anywhere",color:"#9ca3af",fontSize:11,lineHeight:1.45,marginTop:18}}>{details}</pre>
     </div>;
   }
 }
