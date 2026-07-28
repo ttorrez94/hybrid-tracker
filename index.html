@@ -6,14 +6,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#0f2b1d">
+<meta name="theme-color" content="#061815">
 <meta name="apple-mobile-web-app-title" content="Hybrid Training">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icon-192.png">
 <title>Hybrid Training</title>
 <script>
 (function(){
-  var BUILD = "2026-07-28-v11-alpine-brand";
+  var BUILD = "2026-07-28-v12-production";
   var KEY = "hybrid-training-build";
   try {
     if (localStorage.getItem(KEY) !== BUILD) {
@@ -30,7 +30,7 @@
   } catch(e) {}
 })();
 </script>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
@@ -454,11 +454,35 @@ h1, h2, h3,
   .brand-hero{height:126px}
 }
 
+
+/* ===== Hybrid Training production design ===== */
+:root{--deep:#061815;--evergreen:#0d2a21;--forest:#155138;--moss:#3a5f4a;--cream:#f2f3ef;--muted:#8d9a91;--line:rgba(242,243,239,.12);--card:rgba(9,35,29,.72)}
+html,body{background:#061815!important;color:var(--cream);font-family:'Inter',sans-serif!important}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%23cbd8cf' stroke-width='.7'%3E%3Cpath d='M-10 44c35-22 57 22 90 0s55-23 104 2'/%3E%3Cpath d='M-20 61c42-24 70 24 105 1s61-23 112 5'/%3E%3Cpath d='M-10 82c31-18 53 17 82-1s57-28 118-1'/%3E%3Cpath d='M-30 106c52-31 81 25 122 0s62-21 111 7'/%3E%3Cpath d='M-12 133c33-22 58 16 93-2s62-25 117 3'/%3E%3C/g%3E%3C/svg%3E")}
+input,select,button,textarea{font-family:'Inter',sans-serif!important}
+h1,h2,h3,.screen-title,.brand-wordmark{font-family:'Space Grotesk',sans-serif}
+.brand-logo{display:flex;flex-direction:column;align-items:center;color:var(--cream)}.brand-mark{width:142px;height:142px}.brand-wordmark{text-align:center;margin-top:-7px}.brand-wordmark strong{display:block;font-size:34px;line-height:1;letter-spacing:8px;font-weight:600}.brand-wordmark span{display:block;font-size:13px;letter-spacing:8px;margin-top:8px}.brand-logo.compact .brand-mark{width:42px;height:42px}.brand-logo.compact .brand-wordmark{display:none}.brand-logo.icon-only .brand-mark{width:98px;height:98px;opacity:.17}
+.production-shell{background:linear-gradient(180deg,#061815,#071d18 55%,#061815)!important;min-height:100vh;max-width:480px;margin:auto;padding-bottom:82px;color:var(--cream)}
+.production-header{height:58px;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;padding:8px 16px;position:sticky;top:0;z-index:80;background:rgba(6,24,21,.91);backdrop-filter:blur(18px);border-bottom:1px solid rgba(242,243,239,.07)}.production-header button{border:0;background:transparent;color:var(--cream);display:grid;place-items:center}.production-header h1{text-align:center;font-size:18px;letter-spacing:2px;text-transform:uppercase}.production-header .brand-logo{justify-self:center}
+.production-content{padding:0 14px 24px}.home-screen{position:relative}.topo-bg{position:absolute;inset:0;pointer-events:none}.home-brand{padding:18px 0 20px;display:flex;justify-content:center}.hero-card,.readiness-card,.plan-card,.streak-card,.workout-hero,.hr-card,.workout-options{background:linear-gradient(145deg,rgba(9,37,30,.94),rgba(5,23,19,.96));border:1px solid var(--line);border-radius:14px;box-shadow:inset 0 1px rgba(255,255,255,.018)}
+.hero-card{position:relative;min-height:145px;padding:24px 20px}.hero-card h1{font-size:22px;letter-spacing:-.5px;margin-bottom:8px}.hero-card p{font-size:13px;color:var(--muted)}.weekly-ring,.readiness-ring{background:conic-gradient(#486f54 0 var(--progress),rgba(72,111,84,.18) var(--progress) 100%);border-radius:50%;display:grid;place-items:center}.weekly-ring{width:86px;height:86px;position:absolute;right:18px;top:18px}.weekly-ring:before,.readiness-ring:before{content:"";position:absolute;background:#071b16;border-radius:50%}.weekly-ring:before{inset:8px}.weekly-ring div,.readiness-ring div{position:relative;text-align:center}.weekly-ring strong{font:600 27px 'Space Grotesk'}.weekly-ring strong small{font-size:14px}.weekly-ring span{display:block;font-size:9px;color:var(--muted)}.ring-caption{position:absolute;right:15px;bottom:16px;color:var(--muted);font-size:9px;letter-spacing:.7px}
+.week-dots{display:grid;grid-template-columns:repeat(7,1fr);padding:15px 2px 11px}.week-dots div{text-align:center}.week-dots span{display:block;font-size:9px;color:var(--muted);margin-bottom:5px}.week-dots i{width:25px;height:25px;border-radius:50%;border:1px solid rgba(242,243,239,.14);display:inline-grid;place-items:center;color:#a7d5b6;font-style:normal}.week-dots i.done{background:#164c35;border-color:#2e7a50}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.metric-card{min-height:112px;border:1px solid var(--line);border-radius:11px;background:rgba(6,27,22,.72);display:flex;flex-direction:column;align-items:center;justify-content:center}.metric-card svg{color:#d5d9d1;margin-bottom:7px}.metric-card strong{font:600 20px 'Space Grotesk';margin-bottom:4px}.metric-card span{text-transform:uppercase;font-size:8px;color:#b5beb8}.metric-card small{font-size:8px;color:#75837a;margin-top:2px}
+.section-label{font-size:10px;letter-spacing:1px;font-weight:700;color:#dce2dd}.readiness-card{padding:17px;margin-top:12px}.readiness-layout{display:grid;grid-template-columns:132px 1fr;gap:15px;align-items:center;margin:14px 0}.readiness-ring{width:124px;height:124px}.readiness-ring:before{inset:12px}.readiness-ring strong{font:600 42px 'Space Grotesk';display:block}.readiness-ring span{color:#77a684;font-size:11px;letter-spacing:1px}.readiness-layout h2{font-size:15px;line-height:1.35}.readiness-layout p{font-size:11px;color:var(--muted);line-height:1.55;margin-top:10px}.text-action{width:100%;border:1px solid var(--line);background:transparent;color:#cdd5cf;border-radius:9px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;text-align:left}
+.plan-card{padding:15px;margin-top:12px}.section-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.section-row button{border:0;background:transparent;color:#769f7c;font-size:9px}.plan-row{width:100%;display:grid;grid-template-columns:58px 1fr 22px;align-items:center;gap:12px;border:1px solid var(--line);background:rgba(6,25,21,.72);color:var(--cream);padding:10px;border-radius:10px;margin-top:8px;text-align:left}.plan-icon{width:52px;height:52px;border-right:1px solid var(--line);display:grid;place-items:center;color:#e4e7df}.plan-row span:nth-child(2){display:flex;flex-direction:column}.plan-row small{color:#719a76;font-size:8px;letter-spacing:.8px}.plan-row strong{font-size:13px;margin:3px 0}.plan-row em{font-style:normal;font-size:10px;color:var(--muted)}
+.streak-card{display:grid;grid-template-columns:90px 1fr 90px;align-items:center;padding:15px;margin-top:12px;overflow:hidden}.streak-card>div:first-child{border-right:1px solid var(--line)}.streak-card strong{display:block;font:500 36px 'Space Grotesk';margin-top:7px}.streak-card small{color:#799f78;letter-spacing:1px}.streak-card h3{font-size:13px;margin-left:14px}.streak-card p{font-size:10px;color:var(--muted);margin:8px 0 0 14px;line-height:1.5}.streak-card .brand-logo{justify-self:end}
+.screen-tabs{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:16px}.screen-tabs button{padding:11px;border:0;border-right:1px solid var(--line);background:transparent;color:var(--muted)}.screen-tabs button.active{background:#174b35;color:var(--cream)}.screen-tabs button:last-child{border-right:0}.workout-hero,.hr-card,.workout-options{padding:18px;margin-bottom:12px}.workout-hero h1{font-size:23px}.workout-hero p{color:var(--muted);font-size:12px;margin:7px 0 15px}.workout-hero>small{display:block;color:var(--muted);font-size:10px;margin-top:12px}.primary-action{width:100%;border:0;border-radius:7px;padding:13px;background:linear-gradient(90deg,#164c35,#235f41);color:var(--cream);letter-spacing:.7px;font-weight:600}.hr-main{display:flex;align-items:center;gap:13px;margin-top:15px}.hr-main svg{color:#e9e6dc}.hr-main strong{font:500 31px 'Space Grotesk'}.hr-main span{font-size:11px;color:var(--muted)}.hr-card p{font-size:11px;color:var(--muted);margin-left:63px}.zone-bar{height:9px;border-radius:9px;background:linear-gradient(90deg,#2c7180,#5f9f70,#c59f45,#a84b40);margin-top:17px;position:relative}.zone-bar i{position:absolute;left:23%;top:-4px;width:2px;height:17px;background:#f2f3ef}.workout-options label{display:grid;grid-template-columns:145px 1fr;align-items:center;gap:10px;border-top:1px solid var(--line);padding:12px 2px}.workout-options label:first-of-type{margin-top:10px}.workout-options label span{display:flex;align-items:center;gap:9px;color:#dce2dd}.workout-options label b{font-size:11px}.workout-options input{border:0;background:transparent;color:var(--cream);text-align:right;outline:0;font-size:12px;width:100%}
+.production-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:70px;padding-bottom:env(safe-area-inset-bottom);display:grid;grid-template-columns:repeat(5,1fr);background:rgba(5,20,17,.96);border-top:1px solid var(--line);backdrop-filter:blur(20px);z-index:100}.production-nav button{border:0;background:transparent;color:#78867d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}.production-nav small{font-size:8px}.production-nav button.active{color:#7aa580}.production-nav button.active:before{content:"";position:absolute;top:0;width:35px;height:2px;background:#658d6a;border-radius:2px}
+.more-screen{padding-top:18px}.screen-eyebrow{font-size:10px;letter-spacing:1.5px;color:#6e8976}.more-screen h1{font-size:28px;margin:6px 0 18px}.more-list{border:1px solid var(--line);border-radius:14px;overflow:hidden}.more-list button{width:100%;display:grid;grid-template-columns:36px 1fr 20px;gap:10px;align-items:center;padding:15px;border:0;border-bottom:1px solid var(--line);background:rgba(6,28,23,.75);color:var(--cream);text-align:left}.more-list button:last-child{border-bottom:0}.more-list span{display:flex;flex-direction:column}.more-list strong{font-size:13px}.more-list small{font-size:9px;color:var(--muted);margin-top:4px}
+/* Restyle inherited strength cards and controls */
+.production-content [style*="borderRadius:14"],.production-content [style*="borderRadius: 14"]{border-color:var(--line)!important;background:rgba(7,29,24,.82)!important}.production-content input,.production-content select,.production-content textarea{color:var(--cream)!important}.production-content button{box-shadow:none!important}.production-content [style*="fontSize:30"]{font-family:'Space Grotesk'!important}.production-content [style*="background:#22c55e"]{background:#235f41!important}.production-content [style*="color:#22c55e"]{color:#78a883!important}
+@media(max-width:380px){.brand-mark{width:126px;height:126px}.brand-wordmark strong{font-size:29px}.hero-card{padding:20px 15px}.hero-card h1{font-size:19px}.weekly-ring{width:78px;height:78px}.metric-grid{gap:5px}.readiness-layout{grid-template-columns:112px 1fr}.readiness-ring{width:106px;height:106px}.streak-card{grid-template-columns:78px 1fr 72px}}
+
 </style>
 </head>
 <body>
 <div id="boot-status" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0d1410;color:#9ca3af;font:600 14px -apple-system,BlinkMacSystemFont,sans-serif;z-index:9999">Loading Hybrid Training…</div>
-<div id="root"></div><div id="build-version" style="display:none">2026-07-28-v11-alpine-brand</div>
+<div id="root"></div><div id="build-version" style="display:none">2026-07-28-v12-production</div>
 <script>
 (function(){
   function showFatal(message, detail){
@@ -991,7 +1015,7 @@ function StickyTimerBar({ phase, label, duration, onDismiss, muted, setMuted }) 
         Skip
       </button>
       <button onClick={() => setMuted(!muted)} style={{ ...tBtn, padding: "6px 8px" }} title={muted ? "Unmute" : "Mute"}>
-        {muted ? "🔇" : "🔊"}
+        {muted ? <Icon name="mute" size={17}/> : <Icon name="volume" size={17}/>}
       </button>
     </div>
   );
@@ -1013,42 +1037,72 @@ const tBtn = {
 
 // ─── COMPONENTS ───
 
-function AlpineLogo({compact=false}) {
+function BrandLogo({ compact=false, iconOnly=false }) {
   return (
-    <div className={compact ? "alpine-logo compact" : "alpine-logo"}>
-      <svg viewBox="0 0 160 82" aria-hidden="true">
+    <div className={`brand-logo ${compact ? "compact" : ""} ${iconOnly ? "icon-only" : ""}`}>
+      <svg className="brand-mark" viewBox="0 0 160 160" role="img" aria-label="Grand Teton mountain logo">
         <defs>
-          <linearGradient id="mountainGreen" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#59ef72"/>
-            <stop offset="100%" stopColor="#16883b"/>
-          </linearGradient>
+          <clipPath id="brandCircle"><circle cx="80" cy="80" r="72"/></clipPath>
         </defs>
-        <path d="M10 57 43 15l20 27 11-14 31 29H10Z" fill="url(#mountainGreen)" opacity=".95"/>
-        <path d="m43 15 8 18-9-4-7 11-7-2 15-23Z" fill="#d8fbe2" opacity=".82"/>
-        <path d="m74 28 8 14-7-3-5 8-5-2 9-17Z" fill="#c8f7d5" opacity=".7"/>
-        <g fill="#1c9c43">
-          <path d="M112 59 123 38l11 21h-7v9h-8v-9h-7Z"/>
-          <path d="M132 61 141 45l9 16h-6v7h-7v-7h-5Z"/>
-          <path d="M96 62 104 47l8 15h-5v6h-6v-6h-5Z"/>
+        <circle cx="80" cy="80" r="72" fill="none" stroke="currentColor" strokeWidth="3"/>
+        <g clipPath="url(#brandCircle)" fill="none" stroke="currentColor" strokeWidth="2.2" opacity=".94">
+          {[28,38,48,58,68,78,88].map(y=><line key={y} x1="16" y1={y} x2="144" y2={y}/>) }
+        </g>
+        <g clipPath="url(#brandCircle)">
+          <path d="M4 132 24 104 34 114 54 73 66 88 88 38 103 65 113 55 151 126 151 154 4 154Z" fill="#F2F3EF"/>
+          <path d="m54 73 11 29 9-12 14-52 15 27-10-8-6 17-7-8-12 33-7-8-7 13-10-4 10-27Z" fill="#0A2420"/>
+          <path d="m113 55 38 71-20-19-9 5-12-22-8 8-14-33 15 12 10-22Z" fill="#0A2420"/>
+          <path d="M4 132 28 113 43 125 59 108 77 127 91 109 110 127 126 111 151 132V158H4Z" fill="#061815"/>
+          <g fill="#061815">
+            <path d="m17 139 8-24 8 24h-5v15h-7v-15h-4Z"/><path d="m31 141 10-30 10 30h-6v16h-8v-16h-6Z"/>
+            <path d="m118 141 9-28 9 28h-6v16h-7v-16h-5Z"/><path d="m134 142 8-24 8 24h-5v15h-7v-15h-4Z"/>
+          </g>
         </g>
       </svg>
-      {!compact && (
-        <div className="alpine-wordmark">
-          <strong>HYBRID</strong>
-          <span>TRAINING</span>
-        </div>
-      )}
+      {!iconOnly && <div className="brand-wordmark"><strong>HYBRID</strong><span>TRAINING</span></div>}
     </div>
   );
 }
 
-function PineLine({count=5}) {
-  const trees = Array.from({length:count});
-  return (
-    <div className="pine-line" aria-hidden="true">
-      {trees.map((_,i)=><span key={i} style={{"--i":i}}>▲</span>)}
-    </div>
-  );
+function Icon({name, size=22, strokeWidth=1.8, className=""}) {
+  const common = {width:size,height:size,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth,strokeLinecap:"round",strokeLinejoin:"round",className,"aria-hidden":"true"};
+  const icons = {
+    home:<><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M9.5 20v-6h5v6"/></>,
+    strength:<><path d="M3 9v6M6 7v10M18 7v10M21 9v6M6 12h12"/></>,
+    cardio:<><path d="M12 20S4 15.2 4 9.5C4 6.5 7.7 4.5 12 8c4.3-3.5 8-1.5 8 1.5C20 15.2 12 20 12 20Z"/><path d="M7.5 12h2l1.2-2.5 2.2 5 1.3-2.5h2.3"/></>,
+    recovery:<><path d="M3 19 9.2 9.5l2.5 3.2L15.5 6 21 19"/><path d="M6 19h12"/></>,
+    more:<><circle cx="5" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1" fill="currentColor" stroke="none"/></>,
+    menu:<><path d="M4 7h16M4 12h16M4 17h16"/></>,
+    sliders:<><path d="M4 6h10M18 6h2M4 12h3M11 12h9M4 18h8M16 18h4"/><circle cx="16" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="14" cy="18" r="2"/></>,
+    history:<><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8.6"/><path d="M4 4v4.6h4.6M12 8v5l3 2"/></>,
+    body:<><circle cx="12" cy="5" r="2.4"/><path d="M8 21v-5l-2-5 3-2h6l3 2-2 5v5M9 9l3 5 3-5"/></>,
+    grip:<><path d="M7 4v7M10 3v8M13 4v7M16 6v6"/><path d="M7 9c-2 0-3 1.5-2 4l2 5c.5 1.2 1.8 2 3.2 2H14c2.8 0 5-2.2 5-5v-4c0-1.4-1.2-2.5-2.5-2.5"/></>,
+    catalog:<><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></>,
+    bell:<><path d="M6 9a6 6 0 0 1 12 0c0 7 3 7 3 7H3s3 0 3-7M10 20h4"/></>,
+    trophy:<><path d="M8 4h8v5a4 4 0 0 1-8 0V4ZM8 6H4v2a4 4 0 0 0 4 4M16 6h4v2a4 4 0 0 1-4 4M12 13v4M8 20h8M9 17h6"/></>,
+    mute:<><path d="M4 10v4h4l5 4V6L8 10H4M17 9l4 6M21 9l-4 6"/></>,
+    volume:<><path d="M4 10v4h4l5 4V6L8 10H4M17 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></>,
+    rest:<><path d="M17 16.5A7 7 0 1 1 9 5a6 6 0 0 0 8 11.5Z"/></>,
+    check:<><path d="m5 12 4 4L19 6"/></>,
+    arrow:<><path d="m9 18 6-6-6-6"/></>,
+    plus:<><path d="M12 5v14M5 12h14"/></>,
+    chart:<><path d="M4 19V5M4 19h16M7 15l4-4 3 2 5-6"/></>,
+    calendar:<><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></>,
+    shield:<><path d="M12 3 20 6v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></>,
+    target:<><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="m15 9 5-5M17 4h3v3"/></>,
+    light:<><circle cx="12" cy="10" r="4"/><path d="M9 16h6M10 19h4M12 2v2M4.9 4.9l1.4 1.4M19.1 4.9l-1.4 1.4"/></>
+  };
+  return <svg {...common}>{icons[name] || icons.more}</svg>;
+}
+
+function MoreView({setActiveTab}) {
+  const items=[
+    ["history","History","Workout timeline and previous performance"],
+    ["body","Body map","Weekly muscle coverage"],
+    ["hangs","Grip","Hangboard and grip training"],
+    ["catalog","Exercise catalog","Movement library and cues"]
+  ];
+  return <div className="more-screen"><div className="screen-eyebrow">TOOLS</div><h1>More</h1><div className="more-list">{items.map(([key,label,sub])=><button key={key} onClick={()=>setActiveTab(key)}><Icon name={key}/><span><strong>{label}</strong><small>{sub}</small></span><Icon name="arrow" size={18}/></button>)}</div></div>;
 }
 
 function ExercisePicker({ onSelect, onClose, focusFilter }) {
@@ -1204,7 +1258,7 @@ function ExerciseCard({ exercise, onChange, lastSession, onPickExercise, onSetCo
           <input type="text" placeholder="Notes..." value={exercise.notes||""} onChange={e=>onChange({...exercise,notes:e.target.value})}
             style={{width:"100%",boxSizing:"border-box",background:"transparent",border:"none",borderTop:"1px solid var(--border)",padding:"6px 0",fontSize:11,color:"var(--text-muted)",fontFamily:"var(--font)",outline:"none",fontStyle:"italic"}}/>
         </div>
-        <div style={{fontSize:10,color:"var(--text-muted)",fontStyle:"italic",fontFamily:"var(--font)",marginTop:2,opacity:0.7}}>💡 {lib.cue}</div>
+        <div style={{fontSize:10,color:"var(--text-muted)",fontStyle:"italic",fontFamily:"var(--font)",marginTop:2,opacity:0.7}}><Icon name="light" size={11}/> {lib.cue}</div>
       </>}
     </div>
   );
@@ -1266,45 +1320,19 @@ function StrengthDay({ dayKey, title, editableTitle, onTitleChange, exercises, o
 }
 
 function CardioDay({ data, onChange, monday, offset }) {
-  const dayDate = dateForDay(monday, offset);
-  return (
-    <div>
-      <div style={{fontSize:11,color:"var(--text-muted)",fontFamily:"var(--font)",marginBottom:8}}>{fmtDate(dayDate)}</div>
-      <div style={{background:data.done?"rgba(34,197,94,0.05)":"var(--card-bg)",border:data.done?"1.5px solid rgba(34,197,94,0.2)":"1px solid var(--border)",borderRadius:14,padding:"16px"}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
-          <div style={{fontWeight:700,fontSize:15,fontFamily:"var(--font)"}}>Cardio</div>
-          <button onClick={()=>onChange({...data,done:!data.done})} style={{width:34,height:34,borderRadius:8,border:data.done?"none":"2px solid var(--border)",background:data.done?"#22c55e":"transparent",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer"}}>
-            {data.done&&<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>}
-          </button>
-        </div>
-        <select value={data.mode||""} onChange={e=>onChange({...data,mode:e.target.value})} style={{width:"100%",boxSizing:"border-box",background:"var(--input-bg)",border:"1px solid var(--border)",borderRadius:8,padding:"10px 12px",fontSize:14,color:"var(--text-primary)",fontFamily:"var(--font)",marginBottom:8,outline:"none"}}>
-          <option value="">Select mode...</option>
-          {CARDIO_OPTIONS.map(o=><option key={o}>{o}</option>)}
-        </select>
-        <div style={{display:"flex",gap:8,marginBottom:8}}>
-          <div style={{flex:1}}>
-            <div style={{fontSize:9,color:"var(--text-muted)",fontFamily:"var(--font)",textTransform:"uppercase",letterSpacing:"0.5px",marginBottom:3}}>Duration</div>
-            <input type="text" value={data.duration||"60 min"} onChange={e=>onChange({...data,duration:e.target.value})} style={{width:"100%",boxSizing:"border-box",background:"var(--input-bg)",border:"1px solid var(--border)",borderRadius:8,padding:"8px 10px",fontSize:13,color:"var(--text-primary)",fontFamily:"var(--font)",outline:"none"}}/>
-          </div>
-          <div style={{flex:1}}>
-            <div style={{fontSize:9,color:"var(--text-muted)",fontFamily:"var(--font)",textTransform:"uppercase",letterSpacing:"0.5px",marginBottom:3}}>Effort</div>
-            <input type="text" value={data.effort||"Zone 2"} onChange={e=>onChange({...data,effort:e.target.value})} style={{width:"100%",boxSizing:"border-box",background:"var(--input-bg)",border:"1px solid var(--border)",borderRadius:8,padding:"8px 10px",fontSize:13,color:"var(--text-primary)",fontFamily:"var(--font)",outline:"none"}}/>
-          </div>
-        </div>
-        <input type="text" placeholder="Notes..." value={data.notes||""} onChange={e=>onChange({...data,notes:e.target.value})} style={{width:"100%",boxSizing:"border-box",background:"transparent",border:"none",borderTop:"1px solid var(--border)",padding:"8px 0",fontSize:12,color:"var(--text-muted)",fontFamily:"var(--font)",outline:"none",fontStyle:"italic"}}/>
-      </div>
-      {/* Neck PT */}
-      <div className="premium-card" style={{background:"linear-gradient(145deg,#18251d,#121c16)",border:"1px solid rgba(117,164,132,.16)",borderRadius:14,padding:"12px 14px",marginTop:8}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-          <div style={{fontWeight:700,fontSize:13,fontFamily:"var(--font)"}}>Neck PT</div>
-          <button onClick={()=>onChange({...data,pt:!data.pt})} style={{width:30,height:30,borderRadius:7,border:data.pt?"none":"2px solid var(--border)",background:data.pt?"#22c55e":"transparent",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer"}}>
-            {data.pt&&<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>}
-          </button>
-        </div>
-        <input type="text" placeholder="PT notes..." value={data.ptNotes||""} onChange={e=>onChange({...data,ptNotes:e.target.value})} style={{width:"100%",boxSizing:"border-box",background:"transparent",border:"none",borderTop:"1px solid var(--border)",padding:"6px 0",fontSize:11,color:"var(--text-muted)",fontFamily:"var(--font)",outline:"none",marginTop:6,fontStyle:"italic"}}/>
-      </div>
-    </div>
-  );
+  const d=data||{};
+  const target=d.targetHr||'120–140';
+  return <div className="cardio-screen">
+    <div className="screen-tabs"><button className="active">Workouts</button><button>Activities</button><button>History</button></div>
+    <section className="workout-hero"><h1>{d.mode||'Zone 2 Cardio'}</h1><p>Today • {d.duration||'30–45 min'}</p><button className="primary-action" onClick={()=>onChange({...d,done:!d.done})}>{d.done?'WORKOUT COMPLETE':'START WORKOUT'}</button><small>Focus: Endurance, Aerobic Base</small></section>
+    <section className="hr-card"><div className="section-label">HEART RATE TARGET</div><div className="hr-main"><Icon name="cardio" size={50}/><strong>{target}</strong><span>bpm</span></div><p>60–70% Max HR</p><div className="zone-bar"><i></i></div></section>
+    <section className="workout-options"><div className="section-label">WORKOUT DETAILS</div>
+      <label><span><Icon name="cardio"/><b>Mode</b></span><input value={d.mode||''} placeholder="Zone 2 Cardio" onChange={e=>onChange({...d,mode:e.target.value})}/></label>
+      <label><span><Icon name="target"/><b>Target HR</b></span><input value={d.targetHr||''} placeholder="120–140" onChange={e=>onChange({...d,targetHr:e.target.value})}/></label>
+      <label><span><Icon name="history"/><b>Duration</b></span><input value={d.duration||''} placeholder="30–45 min" onChange={e=>onChange({...d,duration:e.target.value})}/></label>
+      <label><span><Icon name="light"/><b>Notes</b></span><input value={d.notes||''} placeholder="How did it feel?" onChange={e=>onChange({...d,notes:e.target.value})}/></label>
+    </section>
+  </div>;
 }
 
 function RecoveryDay({ data, onChange, monday }) {
@@ -1313,7 +1341,7 @@ function RecoveryDay({ data, onChange, monday }) {
     <div>
       <div style={{fontSize:11,color:"var(--text-muted)",fontFamily:"var(--font)",marginBottom:8}}>{fmtDate(dayDate)}</div>
       <div style={{background:data.done?"rgba(34,197,94,0.05)":"var(--card-bg)",border:data.done?"1.5px solid rgba(34,197,94,0.2)":"1px solid var(--border)",borderRadius:14,padding:"24px 16px",textAlign:"center"}}>
-        <div style={{fontSize:30,marginBottom:6}}>🧘</div>
+        <div style={{color:"var(--muted)",marginBottom:8}}><Icon name="recovery" size={34}/></div>
         <div style={{fontWeight:800,fontSize:16,fontFamily:"var(--font)",marginBottom:4}}>Recovery Day</div>
         <div style={{fontSize:12,color:"var(--text-muted)",fontFamily:"var(--font)",marginBottom:16}}>Rest, mobility, or easy walk</div>
         <button onClick={()=>onChange({...data,done:!data.done})} style={{background:data.done?"#22c55e":"var(--input-bg)",border:data.done?"none":"1px solid var(--border)",borderRadius:10,padding:"10px 32px",cursor:"pointer",fontFamily:"var(--font)",fontWeight:600,fontSize:13,color:data.done?"#fff":"var(--text-primary)"}}>
@@ -1325,172 +1353,44 @@ function RecoveryDay({ data, onChange, monday }) {
   );
 }
 
-function DashboardView({ state, history, monday }) {
-  const exercises = state?.exercises || {};
-  const cardio = state?.cardio || {};
-  const recovery = state?.recovery || {};
-  const addons = state?.addons || {};
-  const strengthKeys = getStrengthKeys(state?.dayPlan);
-  const cardioKeys = getCardioKeys(state?.dayPlan);
-
-  const strengthSessions = strengthKeys.filter(k => {
-    const valid = (exercises[k] || []).filter(ex => ex?.name);
-    return valid.length > 0 && valid.every(ex => ex.done);
-  }).length;
-  const conditioningSessions = cardioKeys.filter(k => cardio[k]?.done).length;
-  const completedDays = DAYS_CONFIG.filter(day => {
-    const type = state?.dayPlan?.[day.key] || day.type;
-    if (type === "strength") {
-      const valid = (exercises[day.key] || []).filter(ex => ex?.name);
-      return valid.length > 0 && valid.every(ex => ex.done);
-    }
-    if (type === "cardio") return !!cardio[day.key]?.done;
-    if (type === "recovery") return !!recovery?.done;
-    return false;
-  }).length;
-
-  const completed = [];
-  strengthKeys.forEach(dayKey => {
-    const config = DAYS_CONFIG.find(day => day.key === dayKey);
-    const workoutDate = fmtISO(dateForDay(monday, config?.offset ?? 0));
-    (exercises[dayKey] || []).forEach(item => {
-      if (item?.done && item?.name) completed.push({ ...item, date: workoutDate });
-    });
-  });
-  Object.values(addons).forEach(addon => {
-    (addon?.exercises || []).forEach(item => {
-      if (item?.done && item?.name) completed.push({ ...item, date: fmtISO(monday) });
-    });
-  });
-
-  const totalVolume = completed.reduce((sum, item) => sum + calcVolume(item.weight, setsToRepsString(getSets(item))), 0);
-  const totalSets = completed.reduce((sum, item) => sum + getSets(item).filter(Boolean).length, 0);
-  const completionPotential = Math.max(1, strengthKeys.length + cardioKeys.length + 1);
-  const readiness = Math.min(100, Math.round(58 + (completedDays / completionPotential) * 34));
-  const readinessLabel = readiness >= 85 ? "High" : readiness >= 70 ? "Good" : "Building";
-
-  const today = new Date().getDay();
-  const todayIndex = today === 0 ? 6 : today - 1;
-  const todayConfig = DAYS_CONFIG[todayIndex] || DAYS_CONFIG[0];
-  const todayType = state?.dayPlan?.[todayConfig.key] || todayConfig.type;
-  const todayTitle = state?.dayTitles?.[todayConfig.key] || todayConfig.title || todayConfig.label;
-
-  const nextStrength = strengthKeys.map(key => {
-    const config = DAYS_CONFIG.find(d => d.key === key);
-    const valid = (exercises[key] || []).filter(ex => ex?.name);
-    const done = valid.filter(ex => ex.done).length;
-    return { key, config, title: state?.dayTitles?.[key] || config?.title || config?.label, done, total: valid.length };
-  }).find(item => item.total && item.done < item.total);
-
-  const nextCardio = cardioKeys.map(key => {
-    const config = DAYS_CONFIG.find(d => d.key === key);
-    return { key, config, data: cardio[key] || {} };
-  }).find(item => !item.data.done);
-
-  const dayDone = day => {
-    const type = state?.dayPlan?.[day.key] || day.type;
-    if (type === "strength") {
-      const valid = (exercises[day.key] || []).filter(ex => ex?.name);
-      return valid.length > 0 && valid.every(ex => ex.done);
-    }
-    if (type === "cardio") return !!cardio[day.key]?.done;
-    if (type === "recovery") return !!recovery?.done;
-    return false;
-  };
-
-  return (
-    <div className="mock-dashboard">
-      <section className="brand-hero">
-        <div className="brand-hero-glow"></div>
-        <AlpineLogo compact={false}/>
-        <PineLine count={8}/>
-      </section>
-      <section className="mock-week-strip">
-        {DAYS_CONFIG.map((day, index) => {
-          const done = dayDone(day);
-          const isToday = index === todayIndex;
-          return (
-            <div className="mock-day" key={day.key}>
-              <span>{day.label.slice(0,1)}</span>
-              <div className={`mock-day-dot ${done ? "done" : ""} ${isToday ? "today" : ""}`}>
-                {done ? "✓" : isToday ? day.label.slice(0,1) : ""}
-              </div>
-            </div>
-          );
-        })}
-      </section>
-
-      <div className="mock-section-heading">
-        <span>Week overview</span>
-        <span className="mock-heading-action">This week ›</span>
-      </div>
-
-      <section className="mock-metric-grid">
-        <div className="mock-metric-card">
-          <div className="mock-metric-icon">🏋</div>
-          <strong>{strengthSessions}</strong>
-          <span>Strength<br/>sessions</span>
-        </div>
-        <div className="mock-metric-card">
-          <div className="mock-metric-icon">🏃</div>
-          <strong>{conditioningSessions}</strong>
-          <span>Conditioning<br/>sessions</span>
-        </div>
-        <div className="mock-metric-card">
-          <div className="mock-metric-icon">▰</div>
-          <strong>{totalSets || 0}</strong>
-          <span>Total<br/>sets</span>
-        </div>
-        <div className="mock-metric-card">
-          <div className="mock-metric-icon">↗</div>
-          <strong>{totalVolume ? `${Math.round(totalVolume/1000)}k` : "0"}</strong>
-          <span>Volume<br/>lbs</span>
-        </div>
-      </section>
-
-      <div className="mock-section-heading"><span>Readiness</span></div>
-      <section className="mock-readiness-card">
-        <div className="mock-ring" style={{"--score":`${readiness * 3.6}deg`}}>
-          <div className="mock-ring-inner">
-            <strong>{readiness}</strong>
-            <span>{readinessLabel}</span>
-          </div>
-        </div>
-        <div className="mock-readiness-copy">
-          <h3>{readiness >= 75 ? "You're ready to train." : "Build momentum today."}</h3>
-          <p><i>✓</i> Weekly plan loaded</p>
-          <p><i>✓</i> {completedDays} training days complete</p>
-          <p><i>✓</i> History safely stored</p>
-        </div>
-      </section>
-
-      <div className="mock-section-heading"><span>Today's plan</span></div>
-      <section className="mock-plan-list">
-        <div className="mock-plan-card">
-          <div className="mock-plan-icon">🏋</div>
-          <div>
-            <strong>{todayType === "strength" ? todayTitle : (nextStrength?.title || "Strength session")}</strong>
-            <span>{todayType === "strength" ? todayConfig.label : (nextStrength ? `${nextStrength.done}/${nextStrength.total} exercises complete` : "Weekly strength plan")}</span>
-          </div>
-          <b>›</b>
-        </div>
-        <div className="mock-plan-card">
-          <div className="mock-plan-icon">🏃</div>
-          <div>
-            <strong>{todayType === "cardio" ? (cardio[todayConfig.key]?.mode || "Conditioning") : (nextCardio?.data?.mode || "Conditioning")}</strong>
-            <span>{todayType === "cardio" ? (cardio[todayConfig.key]?.duration || todayConfig.label) : (nextCardio?.data?.duration || "Next cardio session")}</span>
-          </div>
-          <b>›</b>
-        </div>
-      </section>
-
-      <section className="mock-streak-card">
-        <div><strong>{completedDays}</strong><span>Day streak</span></div>
-        <p>Keep it going. Consistency is building.</p>
-        <PineLine count={6}/>
-      </section>
-    </div>
-  );
+function DashboardView({ state, history, monday, onOpenStrength, onOpenCardio }) {
+  const exercises=state?.exercises||{}, cardio=state?.cardio||{}, recovery=state?.recovery||{};
+  const strengthKeys=getStrengthKeys(state?.dayPlan), cardioKeys=getCardioKeys(state?.dayPlan);
+  const doneStrength=strengthKeys.filter(k=>{const x=(exercises[k]||[]).filter(e=>e.name);return x.length&&x.every(e=>e.done)}).length;
+  const doneCardio=cardioKeys.filter(k=>cardio[k]?.done).length;
+  const doneDays=DAYS_CONFIG.filter(d=>{const t=state?.dayPlan?.[d.key]||d.type;if(t==='strength'){const x=(exercises[d.key]||[]).filter(e=>e.name);return x.length&&x.every(e=>e.done)}if(t==='cardio')return !!cardio[d.key]?.done;if(t==='recovery')return !!recovery.done;return false}).length;
+  const totalPlanned=Math.max(1,strengthKeys.length+cardioKeys.length+1);
+  const readiness=Math.min(99,Math.round(62+(doneDays/totalPlanned)*25));
+  const firstStrength=strengthKeys.map(k=>({k,d:DAYS_CONFIG.find(x=>x.key===k),items:(exercises[k]||[]).filter(e=>e.name)})).find(x=>x.items.length&&!x.items.every(e=>e.done));
+  const firstCardio=cardioKeys.map(k=>({k,d:DAYS_CONFIG.find(x=>x.key===k),data:cardio[k]||{}})).find(x=>!x.data.done);
+  const metrics=[
+    {icon:'cardio',value:'—',label:'HRV',unit:'ms'},
+    {icon:'cardio',value:'—',label:'Resting HR',unit:'bpm'},
+    {icon:'rest',value:'—',label:'Sleep',unit:'hours'},
+    {icon:'target',value:doneStrength+doneCardio,label:'Sessions',unit:'week'}
+  ];
+  const completedByDay=d=>{const t=state?.dayPlan?.[d.key]||d.type;if(t==='strength'){const x=(exercises[d.key]||[]).filter(e=>e.name);return x.length&&x.every(e=>e.done)}if(t==='cardio')return !!cardio[d.key]?.done;if(t==='recovery')return !!recovery.done;return false};
+  return <div className="home-screen">
+    <div className="topo-bg" aria-hidden="true"></div>
+    <section className="home-brand"><BrandLogo/></section>
+    <section className="hero-card">
+      <div><h1>{(()=>{const h=new Date().getHours();return h<12?'Good morning':h<18?'Good afternoon':'Good evening'})()}, Tobin.</h1><p>Ready to put in the work?</p></div>
+      <div className="weekly-ring" style={{'--progress':`${Math.min(100,(doneDays/7)*100)}%`}}><div><strong>{doneDays}<small>/7</small></strong><span>DAYS</span></div></div>
+      <small className="ring-caption">WEEKLY PROGRESS</small>
+    </section>
+    <section className="week-dots">{DAYS_CONFIG.map(d=><div key={d.key}><span>{d.label.slice(0,1)}</span><i className={completedByDay(d)?'done':''}>{completedByDay(d)?<Icon name="check" size={13}/>:''}</i></div>)}</section>
+    <section className="metric-grid">{metrics.map((m,i)=><div className="metric-card" key={i}><Icon name={m.icon}/><strong>{m.value}</strong><span>{m.label}</span><small>{m.unit}</small></div>)}</section>
+    <section className="readiness-card">
+      <div className="section-label">READINESS</div>
+      <div className="readiness-layout"><div className="readiness-ring" style={{'--progress':`${readiness}%`}}><div><strong>{readiness}</strong><span>HIGH</span></div></div><div><h2>Your body is primed to perform.</h2><p>Consistency and recovery are trending in the right direction.</p></div></div>
+      <button className="text-action">View full breakdown <Icon name="arrow" size={18}/></button>
+    </section>
+    <section className="plan-card"><div className="section-row"><div className="section-label">TODAY'S PLAN</div><button>VIEW CALENDAR</button></div>
+      <button className="plan-row" onClick={onOpenStrength}><span className="plan-icon"><Icon name="strength" size={30}/></span><span><small>STRENGTH</small><strong>{state?.dayTitles?.[firstStrength?.k]||firstStrength?.d?.title||'Strength session'}</strong><em>45–60 min</em></span><Icon name="arrow"/></button>
+      <button className="plan-row" onClick={onOpenCardio}><span className="plan-icon"><Icon name="cardio" size={30}/></span><span><small>CARDIO</small><strong>{firstCardio?.data?.mode||'Zone 2 Cardio'}</strong><em>{firstCardio?.data?.duration||'30–45 min'}</em></span><Icon name="arrow"/></button>
+    </section>
+    <section className="streak-card"><div><span className="section-label">STREAK</span><strong>{doneDays}</strong><small>DAYS</small></div><div><h3>Keep it rolling.</h3><p>Consistency is where results are built.</p></div><BrandLogo iconOnly compact/></section>
+  </div>;
 }
 
 function MuscleCoverage({ exercises, addons }) {
@@ -1984,7 +1884,7 @@ function CatalogView() {
           </div>
           <div style={{fontSize:11,color:"#4fa873",fontFamily:"var(--font)",marginTop:2}}>{ex.target}</div>
           <div style={{fontSize:10,color:"var(--text-muted)",fontFamily:"var(--font)",marginTop:2}}>{ex.sets} × {ex.reps} • {ex.equip}</div>
-          <div style={{fontSize:10,color:"var(--text-muted)",fontStyle:"italic",fontFamily:"var(--font)",marginTop:3,opacity:0.7}}>💡 {ex.cue}</div>
+          <div style={{fontSize:10,color:"var(--text-muted)",fontStyle:"italic",fontFamily:"var(--font)",marginTop:3,opacity:0.7}}><Icon name="light" size={11}/> {ex.cue}</div>
         </div>
       ))}
     </div>
@@ -2215,7 +2115,7 @@ function AddPreviousWeekModal({ onClose, onAdd }) {
 // INTEGRATION:
 //  1. Paste this whole block above the App() function
 //  2. Add a new tab to your tabs array:
-//       { key:"hangs", label:"Hangs", icon:"🪨" }
+//       { key:"hangs", label:"Hangs", icon:"Grip" }
 //  3. Add a route inside the content area:
 //       {activeTab==="hangs" && <HangboardView />}
 // ═══════════════════════════════════════════════════════════════════
@@ -2621,7 +2521,7 @@ function HangboardSession({ protocol, onComplete, onCancel }) {
         <button onClick={() => setMuted(m => !m)} style={{
           background: "rgba(0,0,0,0.25)", border: "none", color: "#fff",
           borderRadius: 8, padding: "8px 12px", fontSize: 16, cursor: "pointer",
-        }}>{muted ? "🔇" : "🔊"}</button>
+        }}>{muted ? <Icon name="mute" size={17}/> : <Icon name="volume" size={17}/>}</button>
       </div>
 
       {/* Hold + round info */}
@@ -2747,7 +2647,7 @@ class AppErrorBoundary extends React.Component {
     if(!this.state.error) return this.props.children;
     const error = this.state.error;
     const details = [
-      "BUILD: 2026-07-28-v11-alpine-brand",
+      "BUILD: 2026-07-28-v12-production",
       "MESSAGE: " + String(error?.message || error),
       "",
       "STACK:",
@@ -2990,20 +2890,19 @@ function App() {
   }, [timerEnabled, restDuration, checkForPR, autoAdvance, state.exercises]);
 
   const tabs = [
-    {key:"home",label:"Home",icon:"⌂"},
-    {key:"today",label:"Train",icon:"🏋"},
-    {key:"body",label:"Body",icon:"◉"},
-    {key:"hangs",label:"Grip",icon:"✦"},
-    {key:"history",label:"History",icon:"▤"},
-    {key:"catalog",label:"More",icon:"•••"},
+    {key:"home",label:"Home",icon:"home"},
+    {key:"strength",label:"Strength",icon:"strength"},
+    {key:"cardio",label:"Cardio",icon:"cardio"},
+    {key:"recovery",label:"Recovery",icon:"recovery"},
+    {key:"more",label:"More",icon:"more"},
   ];
 
   const dayConfig = DAYS_CONFIG[activeDay];
 
-  if(!loaded) return <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh",background:"#0d1410",color:"#6b7280",fontFamily:"'DM Sans',sans-serif"}}>Loading...</div>;
+  if(!loaded) return <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh",background:"#0d1410",color:"#6b7280",fontFamily:"'Inter',sans-serif"}}>Loading...</div>;
 
   return (
-    <div style={{"--bg":"#08100c","--card-bg":"#131d18","--border":"#26322b","--text-primary":"#e8eaed","--text-muted":"#87918b","--accent":"#3ed65b","--input-bg":"#0e1712","--font":"'DM Sans',sans-serif",fontFamily:"var(--font)",background:"radial-gradient(circle at 50% -10%, rgba(47,112,72,.27), transparent 34%), linear-gradient(180deg,#0d1711 0%,#09100c 100%)",minHeight:"100vh",maxWidth:480,margin:"0 auto",color:"var(--text-primary)",paddingBottom:86}}>
+    <div className="production-shell" style={{"--bg":"#061815","--card-bg":"#09241d","--border":"rgba(242,243,239,.12)","--text-primary":"#f2f3ef","--text-muted":"#8d9a91","--accent":"#3a6a4a","--input-bg":"#081f1a","--font":"Inter, sans-serif"}}>
       <style>{`
         @keyframes slideDown {
           from { opacity: 0; transform: translate(-50%, -20px); }
@@ -3013,27 +2912,11 @@ function App() {
       `}</style>
 
       {/* Header */}
-      <div className="mock-app-header">
-        <div className="mock-header-row">
-          <button className="mock-menu-button" aria-label="Menu"><span></span><span></span><span></span></button>
-          <div className="mock-header-brand">
-            {activeTab === "home" ? <AlpineLogo compact={true}/> : <div className="mock-context-title">{tabs.find(t=>t.key===activeTab)?.label}</div>}
-          </div>
-          <button onClick={()=>setShowSettings(true)} className="mock-calendar-button" aria-label="Settings">⌘</button>
-        </div>
-        {activeTab === "home" && (
-          <div className="mock-greeting">
-            <div>
-              <h1>{(()=>{
-                const h=new Date().getHours();
-                return h<12?"Good morning":h<18?"Good afternoon":"Good evening";
-              })()}, Tobin <span>▲</span></h1>
-              <p>Ready to put in the work?</p>
-            </div>
-            <div className="mock-header-logo"><AlpineLogo compact={true}/></div>
-          </div>
-        )}
-      </div>
+      <header className="production-header">
+        <button aria-label="Menu" onClick={()=>setActiveTab("more")}><Icon name="menu"/></button>
+        {activeTab==="home" ? <BrandLogo compact iconOnly/> : <h1>{tabs.find(t=>t.key===activeTab)?.label || ({history:"History",body:"Body map",hangs:"Grip",catalog:"Catalog"}[activeTab])}</h1>}
+        <button aria-label="Settings" onClick={()=>setShowSettings(true)}><Icon name="sliders"/></button>
+      </header>
 
       {/* Rest Timer (floating above bottom nav) */}
       {timer && <StickyTimerBar
@@ -3048,8 +2931,8 @@ function App() {
 
       {/* PR Toast */}
       {prToast && (
-        <div style={{position:"fixed",top:68,left:"50%",transform:"translateX(-50%)",width:"calc(100% - 24px)",maxWidth:400,zIndex:250,background:"linear-gradient(135deg, #f59e0b 0%, #f97316 100%)",borderRadius:14,padding:"12px 16px",boxShadow:"0 8px 32px rgba(245,158,11,0.4)",display:"flex",alignItems:"center",gap:12,animation:"slideDown 0.3s ease"}}>
-          <div style={{fontSize:28}}>🏆</div>
+        <div style={{position:"fixed",top:68,left:"50%",transform:"translateX(-50%)",width:"calc(100% - 24px)",maxWidth:400,zIndex:250,background:"linear-gradient(135deg,#174c35,#276847)",borderRadius:14,padding:"12px 16px",boxShadow:"0 8px 32px rgba(0,0,0,.4)",display:"flex",alignItems:"center",gap:12,animation:"slideDown 0.3s ease"}}>
+          <div style={{color:"#fff"}}><Icon name="trophy" size={28}/></div>
           <div style={{flex:1}}>
             <div style={{fontWeight:800,fontSize:13,color:"#fff",fontFamily:"var(--font)",textTransform:"uppercase",letterSpacing:"0.5px"}}>New PR!</div>
             <div style={{fontSize:12,color:"rgba(255,255,255,0.9)",fontFamily:"var(--font)",marginTop:2}}>{prToast.exercise} — {prToast.weight} lbs</div>
@@ -3092,7 +2975,7 @@ function App() {
       )}
 
       {/* Day / Addon switcher */}
-      {activeTab==="today"&&(
+      {activeTab==="strength"&&(
         <div style={{padding:"6px 8px 0"}}>
           <div className="mock-top-tabs" style={{display:"flex",gap:0,marginBottom:8}}>
             {DAYS_CONFIG.map((d,i)=>(
@@ -3110,10 +2993,10 @@ function App() {
       )}
 
       {/* Content */}
-      <div className="app-content" style={{padding:"12px 12px 24px"}}>
-        {activeTab==="home" && <DashboardView state={state} history={history} monday={monday}/>}
+      <main className="production-content">
+        {activeTab==="home" && <DashboardView state={state} history={history} monday={monday} onOpenStrength={()=>{setActiveTab("strength");const i=DAYS_CONFIG.findIndex(d=>(state.dayPlan?.[d.key]||d.type)==="strength");if(i>=0)setActiveDay(i)}} onOpenCardio={()=>setActiveTab("cardio")}/>}
 
-        {activeTab==="today" && (()=>{
+        {activeTab==="strength" && (()=>{
           // Check if addon
           const addon = ADDON_CONFIGS.find(a=>a.key===activeDay);
           if(addon) return <AddOnView addonKey={addon.key} label={addon.label} data={state.addons[addon.key]||{}} onChange={d=>setState({...state,addons:{...state.addons,[addon.key]:d}})} history={history} monday={monday} onExerciseDone={(ex)=>handleExerciseDone(ex, null, null)}/>;
@@ -3194,7 +3077,7 @@ function App() {
             <div>
               {planEditor}
               <div style={{textAlign:"center",padding:"32px 16px",background:"var(--card-bg)",border:"1px solid var(--border)",borderRadius:14}}>
-                <div style={{fontSize:30,marginBottom:8,opacity:0.6}}>💤</div>
+                <div style={{color:"var(--muted)",marginBottom:8}}><Icon name="rest" size={32}/></div>
                 <div style={{fontWeight:700,fontSize:15,fontFamily:"var(--font)",marginBottom:4}}>Rest Day</div>
                 <div style={{fontSize:12,color:"var(--text-muted)",fontFamily:"var(--font)"}}>No training scheduled</div>
               </div>
@@ -3203,23 +3086,27 @@ function App() {
           return planEditor;
         })()}
 
+        {activeTab==="cardio" && (()=>{
+          const dc=DAYS_CONFIG.find(d=>(state.dayPlan?.[d.key]||d.type)==="cardio")||DAYS_CONFIG[0];
+          return <CardioDay data={state.cardio[dc.key]||{}} onChange={d=>setState({...state,cardio:{...state.cardio,[dc.key]:d}})} monday={monday} offset={dc.offset}/>;
+        })()}
+        {activeTab==="recovery" && <RecoveryDay data={state.recovery||{}} onChange={d=>setState({...state,recovery:d})} monday={monday}/>} 
+        {activeTab==="more" && <MoreView setActiveTab={setActiveTab}/>} 
         {activeTab==="body" && <BodyMapView exercises={state.exercises} addons={state.addons}/>}
         {activeTab==="hangs" && <HangboardView />}
         {activeTab==="weight" && <BodyweightView bodyweight={bodyweight} setBodyweight={setBodyweight}/>}
         {activeTab==="muscles" && <MuscleCoverage exercises={state.exercises} addons={state.addons}/>}
         {activeTab==="history" && <HistoryView history={history}/>}
         {activeTab==="catalog" && <CatalogView/>}
-      </div>
+      </main>
 
       {/* Bottom Nav */}
-      <div className="mock-bottom-nav">
-        {tabs.map(t=>(
-          <button className={activeTab===t.key?"mock-nav-item active":"mock-nav-item"} key={t.key} onClick={()=>setActiveTab(t.key)}>
-            <span>{t.icon}</span>
-            <small>{t.label}</small>
-          </button>
-        ))}
-      </div>
+      <nav className="production-nav">
+        {tabs.map(t=><button key={t.key} className={(activeTab===t.key || (t.key==="more" && ["history","body","hangs","catalog"].includes(activeTab)))?"active":""} onClick={()=>{
+          if(t.key==="strength") { const i=DAYS_CONFIG.findIndex(d=>(state.dayPlan?.[d.key]||d.type)==="strength"); if(i>=0)setActiveDay(i); }
+          setActiveTab(t.key);
+        }}><Icon name={t.icon}/><small>{t.label}</small></button>)}
+      </nav>
     </div>
   );
 }
