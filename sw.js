@@ -1,4 +1,4 @@
-const CACHE = 'hybrid-training-v2';
+const CACHE = 'hybrid-training-v3';
 const APP_SHELL = [
   './', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png',
   'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap',

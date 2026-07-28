@@ -905,7 +905,7 @@ function DashboardView({ state, history, monday }) {
   const muscleHits = {};
   completedWeekExercises.forEach(h => {
     const l = getLib(h.exercise || h.name);
-    allTargets(ex.name).forEach(m => { muscleHits[m] = (muscleHits[m] || 0) + 1; });
+    allTargets(h.exercise || h.name).forEach(m => { muscleHits[m] = (muscleHits[m] || 0) + 1; });
   });
   const topMuscle = Object.entries(muscleHits).sort((a,b) => b[1] - a[1])[0];
 
