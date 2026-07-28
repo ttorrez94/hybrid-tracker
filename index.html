@@ -6,14 +6,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#0f1115">
+<meta name="theme-color" content="#10271c">
 <meta name="apple-mobile-web-app-title" content="Hybrid Training">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icon-192.png">
 <title>Hybrid Training</title>
 <script>
 (function(){
-  var BUILD = "2026-07-28-v6-diagnostic";
+  var BUILD = "2026-07-28-v7-forest";
   var KEY = "hybrid-training-build";
   try {
     if (localStorage.getItem(KEY) !== BUILD) {
@@ -36,20 +36,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-html, body { background:#0f1115; height:100%; overflow-x:hidden; -webkit-overflow-scrolling:touch; }
+html, body { background:#0d1410; height:100%; overflow-x:hidden; -webkit-overflow-scrolling:touch; }
 body { padding-top:env(safe-area-inset-top); padding-bottom:env(safe-area-inset-bottom); }
 input, select, button { font-family:'DM Sans',sans-serif; }
 select { -webkit-appearance:none; }
 input[type="range"] { -webkit-appearance:none; height:4px; background:#2a2e37; border-radius:2px; }
-input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:9px; background:#6366f1; cursor:pointer; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:9px; background:#1f6b45; cursor:pointer; }
 input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
 input[type="number"] { -moz-appearance:textfield; }
 @keyframes slideDown { from { opacity:0; transform:translate(-50%,-20px);} to { opacity:1; transform:translate(-50%,0);} }
+
+button {
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .12s ease, filter .15s ease, background-color .15s ease, border-color .15s ease;
+}
+button:active { transform: scale(.975); filter: brightness(1.06); }
+input, textarea, select { -webkit-tap-highlight-color: transparent; }
+::selection { background: rgba(31,107,69,.45); color:#fff; }
+
 </style>
 </head>
 <body>
-<div id="boot-status" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0f1115;color:#9ca3af;font:600 14px -apple-system,BlinkMacSystemFont,sans-serif;z-index:9999">Loading Hybrid Training…</div>
-<div id="root"></div><div id="build-version" style="display:none">2026-07-28-v6-diagnostic</div>
+<div id="boot-status" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0d1410;color:#9ca3af;font:600 14px -apple-system,BlinkMacSystemFont,sans-serif;z-index:9999">Loading Hybrid Training…</div>
+<div id="root"></div><div id="build-version" style="display:none">2026-07-28-v7-forest</div>
 <script>
 (function(){
   function showFatal(message, detail){
@@ -57,10 +66,10 @@ input[type="number"] { -moz-appearance:textfield; }
     if(boot) boot.remove();
     var root=document.getElementById('root');
     if(!root) return;
-    root.innerHTML='<div style="min-height:100vh;background:#0f1115;color:#e8eaed;padding:24px;font-family:-apple-system,BlinkMacSystemFont,sans-serif">'+
+    root.innerHTML='<div style="min-height:100vh;background:#0d1410;color:#e8eaed;padding:24px;font-family:-apple-system,BlinkMacSystemFont,sans-serif">'+
       '<h1 style="font-size:20px;margin:0 0 10px">Hybrid Training could not start</h1>'+
       '<p style="color:#9ca3af;line-height:1.5;margin:0 0 16px">'+message+'</p>'+
-      '<button onclick="localStorage.removeItem(\'wt-app-state\');location.reload()" style="padding:11px 14px;border:0;border-radius:9px;background:#6366f1;color:white;font-weight:700">Repair saved app state</button>'+
+      '<button onclick="localStorage.removeItem(\'wt-app-state\');location.reload()" style="padding:11px 14px;border:0;border-radius:9px;background:#1f6b45;color:white;font-weight:700">Repair saved app state</button>'+
       '<button onclick="location.reload()" style="margin-left:8px;padding:11px 14px;border:1px solid #2a2e37;border-radius:9px;background:#191c22;color:#e8eaed;font-weight:700">Reload</button>'+
       (detail?'<pre style="white-space:pre-wrap;color:#6b7280;font-size:11px;margin-top:18px">'+String(detail).replace(/[&<>]/g,function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;'})[c]})+'</pre>':'')+
       '</div>';
@@ -627,8 +636,8 @@ function ExercisePicker({ onSelect, onClose, focusFilter }) {
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                 <span style={{fontWeight:700,fontSize:13,fontFamily:"var(--font)"}}>{ex.name}</span>
                 <span style={{fontSize:9,padding:"2px 7px",borderRadius:4,fontWeight:700,fontFamily:"var(--font)",
-                  background:ex.ci==="C"?"rgba(99,102,241,0.12)":"rgba(168,85,247,0.12)",
-                  color:ex.ci==="C"?"#818cf8":"#c084fc"}}>{ex.focus} • {ex.ci==="C"?"Compound":"Isolation"}</span>
+                  background:ex.ci==="C"?"rgba(31,107,69,0.12)":"rgba(71,125,92,0.12)",
+                  color:ex.ci==="C"?"#4fa873":"#86b89b"}}>{ex.focus} • {ex.ci==="C"?"Compound":"Isolation"}</span>
               </div>
               <div style={{fontSize:11,color:"var(--text-muted)",fontFamily:"var(--font)",marginTop:2}}>{ex.target}</div>
             </div>
@@ -658,7 +667,7 @@ function ExerciseCard({ exercise, onChange, lastSession, onPickExercise, onSetCo
         }}>{isDone&&<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>}</button>
       </div>
       {lib&&<>
-        <div style={{fontSize:11,color:"#818cf8",fontFamily:"var(--font)",marginBottom:8}}>{lib.target}</div>
+        <div style={{fontSize:11,color:"#4fa873",fontFamily:"var(--font)",marginBottom:8}}>{lib.target}</div>
 
         {/* Last Week row */}
         {(lastWeight || lastReps) && (()=>{
@@ -667,8 +676,8 @@ function ExerciseCard({ exercise, onChange, lastSession, onPickExercise, onSetCo
             : (typeof lastReps === "string" && lastReps ? lastReps.split("*").map(s=>s.trim()) : []);
           const lastSetsDisplay = lastSetsArr.filter(s => s !== "" && s != null).join(" · ");
           return (
-            <div style={{display:"flex",alignItems:"center",gap:8,padding:"7px 10px",marginBottom:6,background:"rgba(99,102,241,0.06)",border:"1px solid rgba(99,102,241,0.15)",borderRadius:8}}>
-              <div style={{fontSize:9,fontWeight:700,color:"#818cf8",fontFamily:"var(--font)",textTransform:"uppercase",letterSpacing:"0.5px",flexShrink:0}}>Last Wk</div>
+            <div style={{display:"flex",alignItems:"center",gap:8,padding:"7px 10px",marginBottom:6,background:"rgba(31,107,69,0.06)",border:"1px solid rgba(31,107,69,0.15)",borderRadius:8}}>
+              <div style={{fontSize:9,fontWeight:700,color:"#4fa873",fontFamily:"var(--font)",textTransform:"uppercase",letterSpacing:"0.5px",flexShrink:0}}>Last Wk</div>
               <div style={{flex:1,display:"flex",justifyContent:"space-around",gap:6,alignItems:"center"}}>
                 {lastWeight && (
                   <div style={{fontSize:13,fontWeight:700,fontFamily:"var(--font)",color:"var(--text-primary)"}}>
@@ -684,7 +693,7 @@ function ExerciseCard({ exercise, onChange, lastSession, onPickExercise, onSetCo
               <button onClick={()=>{
                 const newSets = lastSetsArr.length > 0 ? [...lastSetsArr] : getSets(exercise);
                 onChange({...exercise, weight: lastWeight || exercise.weight, sets: newSets, reps: setsToRepsString(newSets)});
-              }} style={{background:"rgba(99,102,241,0.15)",border:"1px solid rgba(99,102,241,0.3)",borderRadius:6,padding:"3px 8px",fontSize:9,fontWeight:700,color:"#818cf8",fontFamily:"var(--font)",cursor:"pointer",textTransform:"uppercase",letterSpacing:"0.3px",flexShrink:0}}>Copy</button>
+              }} style={{background:"rgba(31,107,69,0.15)",border:"1px solid rgba(31,107,69,0.3)",borderRadius:6,padding:"3px 8px",fontSize:9,fontWeight:700,color:"#4fa873",fontFamily:"var(--font)",cursor:"pointer",textTransform:"uppercase",letterSpacing:"0.3px",flexShrink:0}}>Copy</button>
             </div>
           );
         })()}
@@ -734,7 +743,7 @@ function ExerciseCard({ exercise, onChange, lastSession, onPickExercise, onSetCo
                     )}
                   </div>
                 ))}
-                <button onClick={addSet} title="Add another set" style={{flex:"0 0 34px",background:"rgba(99,102,241,0.1)",border:"1px dashed rgba(99,102,241,0.35)",borderRadius:8,padding:"8px 2px",fontSize:18,fontWeight:700,color:"var(--accent)",fontFamily:"var(--font)",cursor:"pointer",lineHeight:1}}>+</button>
+                <button onClick={addSet} title="Add another set" style={{flex:"0 0 34px",background:"rgba(31,107,69,0.1)",border:"1px dashed rgba(31,107,69,0.35)",borderRadius:8,padding:"8px 2px",fontSize:18,fontWeight:700,color:"var(--accent)",fontFamily:"var(--font)",cursor:"pointer",lineHeight:1}}>+</button>
               </div>
             </div>
           );
@@ -797,7 +806,7 @@ function StrengthDay({ dayKey, title, editableTitle, onTitleChange, exercises, o
         <div>
           {editableTitle ? (
             <input type="text" value={title} onChange={e=>onTitleChange && onTitleChange(e.target.value)}
-              style={{fontSize:11,color:"var(--accent)",fontWeight:700,fontFamily:"var(--font)",textTransform:"uppercase",letterSpacing:"0.5px",background:"transparent",border:"none",borderBottom:"1px dashed rgba(99,102,241,0.3)",outline:"none",padding:"1px 2px",maxWidth:200}}/>
+              style={{fontSize:11,color:"var(--accent)",fontWeight:700,fontFamily:"var(--font)",textTransform:"uppercase",letterSpacing:"0.5px",background:"transparent",border:"none",borderBottom:"1px dashed rgba(31,107,69,0.3)",outline:"none",padding:"1px 2px",maxWidth:200}}/>
           ) : (
             <div style={{fontSize:11,color:"var(--accent)",fontWeight:700,fontFamily:"var(--font)",textTransform:"uppercase",letterSpacing:"0.5px"}}>{title}</div>
           )}
@@ -968,7 +977,7 @@ function DashboardView({ state, history, monday }) {
     <div>
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:12}}>
         {[
-          {label:'Strength',done:strengthDone,total:strengthTotal,color:'#6366f1'},
+          {label:'Strength',done:strengthDone,total:strengthTotal,color:'#1f6b45'},
           {label:'Cardio/Recovery',done:cardioDone,total:cardioTotal,color:'#22c55e'}
         ].map(progress => (
           <div key={progress.label} style={{background:'var(--card-bg)',border:'1px solid var(--border)',borderRadius:12,padding:'12px 14px'}}>
@@ -1218,10 +1227,10 @@ function BodyMapView({ exercises, addons }) {
   Object.values(addons||{}).forEach(addon=>{(addon.exercises||[]).forEach(tally);});
 
   const COLORS = {
-    primary: "#d4ff00",            // bright yellow-green
-    primaryDim: "#bce500",
-    secondary: "#9bb450",          // olive
-    secondaryDim: "#7a8e3e",
+    primary: "#4fa873",            // bright yellow-green
+    primaryDim: "#3f8f61",
+    secondary: "#7aa88b",          // olive
+    secondaryDim: "#5f876f",
   };
 
   // Build a path-index → color map for the active view
@@ -1363,8 +1372,8 @@ function BodyMapView({ exercises, addons }) {
               <ellipse
                 key={`hit-${zone.id}`}
                 cx={zone.cx} cy={zone.cy} rx={zone.rx+2} ry={zone.ry+2}
-                fill={isSelected ? "rgba(99,102,241,0.18)" : "transparent"}
-                stroke={isSelected ? "#818cf8" : "transparent"}
+                fill={isSelected ? "rgba(31,107,69,0.18)" : "transparent"}
+                stroke={isSelected ? "#4fa873" : "transparent"}
                 strokeWidth={isSelected ? 1.5 : 0}
                 style={{cursor:"pointer",transition:"all 0.2s ease"}}
                 onClick={() => setSelected(selected === zone.id ? null : zone.id)}
@@ -1374,9 +1383,9 @@ function BodyMapView({ exercises, addons }) {
 
           {/* Legend */}
           <g transform="translate(330,930)">
-            <circle cx="0" cy="0" r="5" fill="#d4ff00"/>
+            <circle cx="0" cy="0" r="5" fill="#4fa873"/>
             <text x="10" y="3" fill="rgba(220,220,220,0.85)" fontSize="9" fontFamily="var(--font)" fontWeight="600">Primary</text>
-            <circle cx="0" cy="14" r="5" fill="#9bb450"/>
+            <circle cx="0" cy="14" r="5" fill="#7aa88b"/>
             <text x="10" y="17" fill="rgba(220,220,220,0.85)" fontSize="9" fontFamily="var(--font)" fontWeight="600">Secondary</text>
           </g>
         </svg>
@@ -1384,14 +1393,14 @@ function BodyMapView({ exercises, addons }) {
 
       {/* Counter */}
       <div style={{textAlign:"center",margin:"10px 0 4px"}}>
-        <span style={{fontSize:22,fontWeight:800,fontFamily:"var(--font)",color:"#d4ff00"}}>{allCovered.size}</span>
+        <span style={{fontSize:22,fontWeight:800,fontFamily:"var(--font)",color:"#4fa873"}}>{allCovered.size}</span>
         <span style={{fontSize:11,color:"var(--text-muted)",fontFamily:"var(--font)"}}> / {MUSCLE_GROUPS.length} muscle groups hit this week</span>
       </div>
 
       {/* Tap-to-detail panel */}
       {selected && selectedZone && (
-        <div style={{background:"var(--card-bg)",border:"1px solid rgba(99,102,241,0.3)",borderRadius:14,padding:"14px 16px",marginTop:10,marginBottom:14}}>
-          <div style={{fontWeight:800,fontSize:15,fontFamily:"var(--font)",marginBottom:2,color:"#818cf8"}}>{selectedZone.label}</div>
+        <div style={{background:"var(--card-bg)",border:"1px solid rgba(31,107,69,0.3)",borderRadius:14,padding:"14px 16px",marginTop:10,marginBottom:14}}>
+          <div style={{fontWeight:800,fontSize:15,fontFamily:"var(--font)",marginBottom:2,color:"#4fa873"}}>{selectedZone.label}</div>
           <div style={{fontSize:11,color:"var(--text-muted)",fontFamily:"var(--font)",marginBottom:8}}>
             Targets: {selectedZone.muscles.join(", ")}
           </div>
@@ -1404,7 +1413,7 @@ function BodyMapView({ exercises, addons }) {
                 <div style={{flex:1,minWidth:0}}>
                   <div style={{fontSize:12,fontWeight:600,fontFamily:"var(--font)"}}>{ex.name}</div>
                   <div style={{fontSize:10,color:"var(--text-muted)",fontFamily:"var(--font)"}}>
-                    <span style={{color:ex.role==="primary"?"#d4ff00":"#9bb450",fontWeight:700,marginRight:6}}>{ex.role==="primary"?"PRIMARY":"SECONDARY"}</span>
+                    <span style={{color:ex.role==="primary"?"#4fa873":"#7aa88b",fontWeight:700,marginRight:6}}>{ex.role==="primary"?"PRIMARY":"SECONDARY"}</span>
                   </div>
                 </div>
                 <div style={{display:"flex",alignItems:"center",gap:8}}>
@@ -1430,7 +1439,7 @@ function BodyMapView({ exercises, addons }) {
         const gaps = MUSCLE_GROUPS.filter(m => !allCovered.has(m));
         if(gaps.length === 0) return (
           <div style={{background:"rgba(212,255,0,0.06)",border:"1px solid rgba(212,255,0,0.18)",borderRadius:12,padding:"12px 16px",textAlign:"center"}}>
-            <span style={{fontSize:13,fontWeight:700,fontFamily:"var(--font)",color:"#d4ff00"}}>Full coverage this week</span>
+            <span style={{fontSize:13,fontWeight:700,fontFamily:"var(--font)",color:"#4fa873"}}>Full coverage this week</span>
           </div>
         );
         return (
@@ -1465,7 +1474,7 @@ function HistoryView({ history }) {
               {entries.slice(-12).map((e,i,arr)=>{const pct=(parseFloat(e.weight)||0)/maxW*100;return(
                 <div key={i} style={{display:"flex",flexDirection:"column",alignItems:"center",flex:1,maxWidth:40}}>
                   <div style={{fontSize:10,fontWeight:700,fontFamily:"var(--font)",marginBottom:3}}>{e.weight}</div>
-                  <div style={{width:"100%",height:`${pct}%`,minHeight:3,background:i===arr.length-1?"#22c55e":"#6366f1",borderRadius:"5px 5px 0 0",transition:"height 0.3s"}}/>
+                  <div style={{width:"100%",height:`${pct}%`,minHeight:3,background:i===arr.length-1?"#22c55e":"#1f6b45",borderRadius:"5px 5px 0 0",transition:"height 0.3s"}}/>
                   <div style={{fontSize:8,color:"var(--text-muted)",fontFamily:"var(--font)",marginTop:3}}>{e.date.slice(5)}</div>
                 </div>
               );})}
@@ -1514,9 +1523,9 @@ function CatalogView() {
         <div key={ex.name} style={{background:"var(--card-bg)",border:"1px solid var(--border)",borderRadius:10,padding:"10px 14px",marginBottom:5}}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
             <span style={{fontWeight:700,fontSize:13,fontFamily:"var(--font)"}}>{ex.name}</span>
-            <span style={{fontSize:9,padding:"2px 7px",borderRadius:4,fontWeight:700,fontFamily:"var(--font)",background:ex.ci==="C"?"rgba(99,102,241,0.12)":"rgba(168,85,247,0.12)",color:ex.ci==="C"?"#818cf8":"#c084fc"}}>{ex.ci==="C"?"Compound":"Isolation"}</span>
+            <span style={{fontSize:9,padding:"2px 7px",borderRadius:4,fontWeight:700,fontFamily:"var(--font)",background:ex.ci==="C"?"rgba(31,107,69,0.12)":"rgba(71,125,92,0.12)",color:ex.ci==="C"?"#4fa873":"#86b89b"}}>{ex.ci==="C"?"Compound":"Isolation"}</span>
           </div>
-          <div style={{fontSize:11,color:"#818cf8",fontFamily:"var(--font)",marginTop:2}}>{ex.target}</div>
+          <div style={{fontSize:11,color:"#4fa873",fontFamily:"var(--font)",marginTop:2}}>{ex.target}</div>
           <div style={{fontSize:10,color:"var(--text-muted)",fontFamily:"var(--font)",marginTop:2}}>{ex.sets} × {ex.reps} • {ex.equip}</div>
           <div style={{fontSize:10,color:"var(--text-muted)",fontStyle:"italic",fontFamily:"var(--font)",marginTop:3,opacity:0.7}}>💡 {ex.cue}</div>
         </div>
@@ -1644,7 +1653,7 @@ function SettingsModal({ onClose, restDuration, setRestDuration, autoAdvance, se
                 <div style={{fontSize:11,color:"var(--text-muted)",fontFamily:"var(--font)"}}>Duration</div>
                 <div style={{fontSize:14,fontWeight:700,fontFamily:"var(--font)",color:"var(--accent)"}}>{Math.floor(restDuration/60)}:{(restDuration%60).toString().padStart(2,"0")}</div>
               </div>
-              <input type="range" min="30" max="300" step="15" value={restDuration} onChange={e=>setRestDuration(parseInt(e.target.value))} style={{width:"100%",accentColor:"#6366f1"}}/>
+              <input type="range" min="30" max="300" step="15" value={restDuration} onChange={e=>setRestDuration(parseInt(e.target.value))} style={{width:"100%",accentColor:"#1f6b45"}}/>
               <div style={{display:"flex",justifyContent:"space-between",fontSize:9,color:"var(--text-muted)",fontFamily:"var(--font)",marginTop:2}}>
                 <span>30s</span><span>1:30</span><span>3:00</span><span>5:00</span>
               </div>
@@ -2281,7 +2290,7 @@ class AppErrorBoundary extends React.Component {
     if(!this.state.error) return this.props.children;
     const error = this.state.error;
     const details = [
-      "BUILD: 2026-07-28-v6-diagnostic",
+      "BUILD: 2026-07-28-v7-forest",
       "MESSAGE: " + String(error?.message || error),
       "",
       "STACK:",
@@ -2290,10 +2299,10 @@ class AppErrorBoundary extends React.Component {
       "REACT COMPONENT STACK:",
       String(this.state.componentStack || "No React component stack available")
     ].join("\n");
-    return <div style={{minHeight:"100vh",background:"#0f1115",color:"#e8eaed",padding:24,fontFamily:"-apple-system,BlinkMacSystemFont,sans-serif"}}>
-      <h1 style={{fontSize:20,marginBottom:10}}>Hybrid Training diagnostic</h1>
-      <p style={{color:"#9ca3af",lineHeight:1.5,marginBottom:16}}>Take a screenshot of the entire error below. Do not press Repair app state.</p>
-      <button onClick={()=>location.reload()} style={{padding:"11px 14px",border:0,borderRadius:9,background:"#6366f1",color:"white",fontWeight:700}}>Reload app</button>
+    return <div style={{minHeight:"100vh",background:"#0d1410",color:"#e8eaed",padding:24,fontFamily:"-apple-system,BlinkMacSystemFont,sans-serif"}}>
+      <h1 style={{fontSize:20,marginBottom:10}}>Hybrid Training</h1>
+      <p style={{color:"#9ca3af",lineHeight:1.5,marginBottom:16}}>The app hit an unexpected display error. Reloading usually restores the current screen without affecting saved workouts.</p>
+      <button onClick={()=>location.reload()} style={{padding:"11px 14px",border:0,borderRadius:9,background:"#1f6b45",color:"white",fontWeight:700}}>Reload app</button>
       <pre style={{whiteSpace:"pre-wrap",overflowWrap:"anywhere",color:"#9ca3af",fontSize:11,lineHeight:1.45,marginTop:18}}>{details}</pre>
     </div>;
   }
@@ -2522,10 +2531,10 @@ function App() {
 
   const dayConfig = DAYS_CONFIG[activeDay];
 
-  if(!loaded) return <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh",background:"#0f1115",color:"#6b7280",fontFamily:"'DM Sans',sans-serif"}}>Loading...</div>;
+  if(!loaded) return <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh",background:"#0d1410",color:"#6b7280",fontFamily:"'DM Sans',sans-serif"}}>Loading...</div>;
 
   return (
-    <div style={{"--bg":"#0f1115","--card-bg":"#191c22","--border":"#2a2e37","--text-primary":"#e8eaed","--text-muted":"#6b7280","--accent":"#6366f1","--input-bg":"#1e2028","--font":"'DM Sans',sans-serif",fontFamily:"var(--font)",background:"var(--bg)",minHeight:"100vh",maxWidth:480,margin:"0 auto",color:"var(--text-primary)",paddingBottom:56}}>
+    <div style={{"--bg":"#0d1410","--card-bg":"#17201a","--border":"#29372f","--text-primary":"#e8eaed","--text-muted":"#6b7280","--accent":"#1f6b45","--input-bg":"#1b261f","--font":"'DM Sans',sans-serif",fontFamily:"var(--font)",background:"var(--bg)",minHeight:"100vh",maxWidth:480,margin:"0 auto",color:"var(--text-primary)",paddingBottom:56}}>
       <style>{`
         @keyframes slideDown {
           from { opacity: 0; transform: translate(-50%, -20px); }
@@ -2656,9 +2665,9 @@ function App() {
                 setState({...state, dayPlan:newPlan, dayTitles:newTitles});
               }} style={{
                 flex:1,padding:"7px 4px",borderRadius:8,border:"1px solid",
-                borderColor: isActive ? "#6366f1" : "var(--border)",
-                background: isActive ? "rgba(99,102,241,0.18)" : "transparent",
-                color: isActive ? "#a5b4fc" : "var(--text-muted)",
+                borderColor: isActive ? "#1f6b45" : "var(--border)",
+                background: isActive ? "rgba(31,107,69,0.18)" : "transparent",
+                color: isActive ? "#79c596" : "var(--text-muted)",
                 fontSize:11,fontWeight:600,fontFamily:"var(--font)",cursor:"pointer",
               }}>{label}</button>
             );
