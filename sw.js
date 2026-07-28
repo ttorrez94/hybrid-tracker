@@ -1,4 +1,4 @@
-const CACHE = 'hybrid-training-v7-forest';
+const CACHE = 'hybrid-training-v8-polish';
 const APP_SHELL = [
   './', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png',
   'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap',
