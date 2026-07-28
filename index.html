@@ -13,7 +13,7 @@
 <title>Hybrid Training</title>
 <script>
 (function(){
-  var BUILD = "2026-07-28-v4";
+  var BUILD = "2026-07-28-v5";
   var KEY = "hybrid-training-build";
   try {
     if (localStorage.getItem(KEY) !== BUILD) {
@@ -878,116 +878,148 @@ function RecoveryDay({ data, onChange, monday }) {
 }
 
 function DashboardView({ state, history, monday }) {
-  const { exercises, cardio, recovery, addons } = state;
-  // Count done
-  let strengthDone=0, strengthTotal=0;
-  getStrengthKeys(state.dayPlan).forEach(k=>{(exercises[k]||[]).forEach(e=>{if(e.name){strengthTotal++;if(e.done)strengthDone++;}});});
-  let cardioDone=0;
-  getCardioKeys(state.dayPlan).forEach(k=>{if(cardio[k]?.done)cardioDone++;});
-  if(recovery?.done)cardioDone++;
-  let ptDone=0; const ptTotal=getCardioKeys(state.dayPlan).length+getStrengthKeys(state.dayPlan).length;
-  getCardioKeys(state.dayPlan).forEach(k=>{if(cardio[k]?.pt)ptDone++;});
-  getStrengthKeys(state.dayPlan).forEach(k=>{/* PT on strength days tracked via state.pt */});
-  getStrengthKeys(state.dayPlan).forEach(k=>{if(state.pt?.[k])ptDone++;});
-  // not handling strength day PT in preview but counts available
-  
-  // Muscles covered
+  const exercises = state?.exercises || {};
+  const cardio = state?.cardio || {};
+  const recovery = state?.recovery || {};
+  const addons = state?.addons || {};
+  const strengthKeys = getStrengthKeys(state?.dayPlan);
+  const cardioKeys = getCardioKeys(state?.dayPlan);
+
+  let strengthDone = 0;
+  let strengthTotal = 0;
+  strengthKeys.forEach(dayKey => {
+    const dayExercises = Array.isArray(exercises[dayKey]) ? exercises[dayKey] : [];
+    dayExercises.forEach(item => {
+      if (!item || !item.name) return;
+      strengthTotal += 1;
+      if (item.done) strengthDone += 1;
+    });
+  });
+
+  let cardioDone = 0;
+  cardioKeys.forEach(dayKey => { if (cardio[dayKey]?.done) cardioDone += 1; });
+  if (recovery?.done) cardioDone += 1;
+  const cardioTotal = cardioKeys.length + 1;
+
+  let ptDone = 0;
+  cardioKeys.forEach(dayKey => { if (cardio[dayKey]?.pt) ptDone += 1; });
+  strengthKeys.forEach(dayKey => { if (state?.pt?.[dayKey]) ptDone += 1; });
+  const ptTotal = cardioKeys.length + strengthKeys.length;
+
   const coveredMuscles = new Set();
-  ["tue","thu","sat"].forEach(k=>{(exercises[k]||[]).forEach(ex=>{if(ex.name){allTargets(ex.name).forEach(m=>coveredMuscles.add(m));}});});
-  Object.values(addons||{}).forEach(addon=>{(addon.exercises||[]).forEach(ex=>{if(ex.name){allTargets(ex.name).forEach(m=>coveredMuscles.add(m));}});});
-  const gaps = MUSCLE_GROUPS.filter(m=>!coveredMuscles.has(m));
-
-  // Week stats — calculate live from completed exercises (current week)
-  const completedWeekExercises = [];
-  getStrengthKeys(state.dayPlan).forEach((k, ki) => {
-    const offset = [1,3,5][ki];
-    const dayDate = fmtISO(dateForDay(monday, offset));
-    (exercises[k] || []).forEach(ex => {
-      if (ex.done && ex.name) {
-        completedWeekExercises.push({ ...ex, date: dayDate });
-      }
+  strengthKeys.forEach(dayKey => {
+    const dayExercises = Array.isArray(exercises[dayKey]) ? exercises[dayKey] : [];
+    dayExercises.forEach(item => {
+      if (item?.name) allTargets(item.name).forEach(muscle => coveredMuscles.add(muscle));
     });
   });
-  Object.entries(addons || {}).forEach(([ak, ad]) => {
-    (ad.exercises || []).forEach(ex => {
-      if (ex.done && ex.name) {
-        completedWeekExercises.push({ ...ex, date: fmtISO(monday) });
-      }
+  Object.values(addons).forEach(addon => {
+    const addonExercises = Array.isArray(addon?.exercises) ? addon.exercises : [];
+    addonExercises.forEach(item => {
+      if (item?.name) allTargets(item.name).forEach(muscle => coveredMuscles.add(muscle));
+    });
+  });
+  const gaps = MUSCLE_GROUPS.filter(muscle => !coveredMuscles.has(muscle));
+
+  const completed = [];
+  strengthKeys.forEach(dayKey => {
+    const config = DAYS_CONFIG.find(day => day.key === dayKey);
+    const workoutDate = fmtISO(dateForDay(monday, config?.offset ?? 0));
+    const dayExercises = Array.isArray(exercises[dayKey]) ? exercises[dayKey] : [];
+    dayExercises.forEach(item => {
+      if (item?.done && item?.name) completed.push({ ...item, date: workoutDate });
+    });
+  });
+  Object.values(addons).forEach(addon => {
+    const addonExercises = Array.isArray(addon?.exercises) ? addon.exercises : [];
+    addonExercises.forEach(item => {
+      if (item?.done && item?.name) completed.push({ ...item, date: fmtISO(monday) });
     });
   });
 
-  const totalLoad = completedWeekExercises.reduce((s, h) => s + calcVolume(h.weight, h.reps), 0);
-  const heaviest = completedWeekExercises.length ? Math.max(...completedWeekExercises.map(h => parseFloat(h.weight) || 0)) : 0;
-  const daysTrained = new Set(completedWeekExercises.map(h => h.date)).size;
-
-  // Most trained muscle
+  const totalLoad = completed.reduce((sum, item) => sum + calcVolume(item.weight, setsToRepsString(getSets(item))), 0);
+  const heaviest = completed.reduce((max, item) => Math.max(max, parseFloat(item.weight) || 0), 0);
+  const daysTrained = new Set(completed.map(item => item.date)).size;
   const muscleHits = {};
-  completedWeekExercises.forEach(h => {
-    const l = getLib(h.exercise || h.name);
-    allTargets(h.exercise || h.name).forEach(m => { muscleHits[m] = (muscleHits[m] || 0) + 1; });
+  completed.forEach(item => {
+    allTargets(item.name).forEach(muscle => { muscleHits[muscle] = (muscleHits[muscle] || 0) + 1; });
   });
   const topMuscle = Object.entries(muscleHits).sort((a,b) => b[1] - a[1])[0];
 
+  const dayStatus = day => {
+    const currentType = state?.dayPlan?.[day.key] || day.type;
+    if (currentType === 'strength') {
+      const dayExercises = Array.isArray(exercises[day.key]) ? exercises[day.key] : [];
+      const valid = dayExercises.filter(item => item?.name);
+      const done = valid.filter(item => item.done).length;
+      if (valid.length && done === valid.length) return { text:'✓ Complete', color:'#22c55e' };
+      if (done) return { text:`${done}/${valid.length}`, color:'#f59e0b' };
+      return { text:'Not started', color:'var(--text-muted)' };
+    }
+    if (currentType === 'cardio') return cardio[day.key]?.done
+      ? { text:'✓ Done', color:'#22c55e' }
+      : { text:'Not done', color:'var(--text-muted)' };
+    return recovery?.done
+      ? { text:'✓ Done', color:'#22c55e' }
+      : { text:'Not done', color:'var(--text-muted)' };
+  };
+
   return (
     <div>
-      {/* Progress bars */}
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:12}}>
-        {[{label:"Strength",done:strengthDone,total:strengthTotal,color:"#6366f1"},
-          {label:"Cardio/Recovery",done:cardioDone,total:4,color:"#22c55e"},
-        ].map(p=>(
-          <div key={p.label} style={{background:"var(--card-bg)",border:"1px solid var(--border)",borderRadius:12,padding:"12px 14px"}}>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
-              <span style={{fontSize:11,fontWeight:700,fontFamily:"var(--font)",color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:"0.5px"}}>{p.label}</span>
-              <span style={{fontSize:14,fontWeight:800,fontFamily:"var(--font)",color:p.done===p.total&&p.total>0?p.color:"var(--text-primary)"}}>{p.done}/{p.total}</span>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:12}}>
+        {[
+          {label:'Strength',done:strengthDone,total:strengthTotal,color:'#6366f1'},
+          {label:'Cardio/Recovery',done:cardioDone,total:cardioTotal,color:'#22c55e'}
+        ].map(progress => (
+          <div key={progress.label} style={{background:'var(--card-bg)',border:'1px solid var(--border)',borderRadius:12,padding:'12px 14px'}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
+              <span style={{fontSize:11,fontWeight:700,fontFamily:'var(--font)',color:'var(--text-muted)',textTransform:'uppercase',letterSpacing:'0.5px'}}>{progress.label}</span>
+              <span style={{fontSize:14,fontWeight:800,fontFamily:'var(--font)',color:progress.done===progress.total&&progress.total>0?progress.color:'var(--text-primary)'}}>{progress.done}/{progress.total}</span>
             </div>
-            <div style={{height:4,background:"var(--border)",borderRadius:2,overflow:"hidden"}}>
-              <div style={{height:"100%",width:`${p.total?p.done/p.total*100:0}%`,background:p.color,borderRadius:2,transition:"width 0.3s"}}/>
+            <div style={{height:4,background:'var(--border)',borderRadius:2,overflow:'hidden'}}>
+              <div style={{height:'100%',width:`${progress.total ? progress.done/progress.total*100 : 0}%`,background:progress.color,borderRadius:2,transition:'width 0.3s'}}/>
             </div>
           </div>
         ))}
       </div>
 
-      {/* PT tracker */}
-      <div style={{background:"var(--card-bg)",border:"1px solid var(--border)",borderRadius:12,padding:"12px 14px",marginBottom:12}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-          <span style={{fontSize:11,fontWeight:700,fontFamily:"var(--font)",color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:"0.5px"}}>Neck PT</span>
-          <span style={{fontSize:14,fontWeight:800,fontFamily:"var(--font)"}}>{ptDone}/5</span>
-        </div>
+      <div style={{background:'var(--card-bg)',border:'1px solid var(--border)',borderRadius:12,padding:'12px 14px',marginBottom:12,display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+        <span style={{fontSize:11,fontWeight:700,fontFamily:'var(--font)',color:'var(--text-muted)',textTransform:'uppercase',letterSpacing:'0.5px'}}>Neck PT</span>
+        <span style={{fontSize:14,fontWeight:800,fontFamily:'var(--font)'}}>{ptDone}/{ptTotal}</span>
       </div>
 
-      {/* Week at a Glance */}
-      <div style={{background:"var(--card-bg)",border:"1px solid var(--border)",borderRadius:12,padding:"14px",marginBottom:12}}>
-        <div style={{fontSize:11,fontWeight:700,fontFamily:"var(--font)",color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:"0.5px",marginBottom:10}}>Week at a Glance</div>
-        {DAYS_CONFIG.map((d,i)=>{
-          let status="—";let statusColor="var(--text-muted)";
-          if(d.type==="strength"){const exs=exercises[d.key]||[];const done=exs.filter(e=>e.done).length;const tot=exs.filter(e=>e.name).length;if(done===tot&&tot>0){status="✓ Complete";statusColor="#22c55e";}else if(done>0){status=`${done}/${tot}`;statusColor="#f59e0b";}else{status="Not started";}}
-          else if(d.type==="cardio"){status=cardio[d.key]?.done?"✓ Done":"Not done";statusColor=cardio[d.key]?.done?"#22c55e":"var(--text-muted)";}
-          else{status=recovery?.done?"✓ Done":"Not done";statusColor=recovery?.done?"#22c55e":"var(--text-muted)";}
-          return(
-            <div key={d.key} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"4px 0",borderBottom:i<6?"1px solid var(--border)":"none"}}>
-              <span style={{fontSize:12,fontFamily:"var(--font)",fontWeight:600}}>{d.label}</span>
-              <span style={{fontSize:11,fontFamily:"var(--font)",fontWeight:600,color:statusColor}}>{status}</span>
+      <div style={{background:'var(--card-bg)',border:'1px solid var(--border)',borderRadius:12,padding:14,marginBottom:12}}>
+        <div style={{fontSize:11,fontWeight:700,fontFamily:'var(--font)',color:'var(--text-muted)',textTransform:'uppercase',letterSpacing:'0.5px',marginBottom:10}}>Week at a Glance</div>
+        {DAYS_CONFIG.map((day,index) => {
+          const status = dayStatus(day);
+          return (
+            <div key={day.key} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'4px 0',borderBottom:index<6?'1px solid var(--border)':'none'}}>
+              <span style={{fontSize:12,fontFamily:'var(--font)',fontWeight:600}}>{day.label}</span>
+              <span style={{fontSize:11,fontFamily:'var(--font)',fontWeight:600,color:status.color}}>{status.text}</span>
             </div>
           );
         })}
       </div>
 
-      {/* Stats */}
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:12}}>
-        {[{label:"Days Trained",value:daysTrained||"—"},{label:"Total Volume",value:totalLoad?`${Math.round(totalLoad).toLocaleString()} lbs`:"—"},{label:"Heaviest Lift",value:heaviest?`${heaviest} lbs`:"—"},{label:"Most Trained",value:topMuscle?`${topMuscle[0]} (${topMuscle[1]}×)`:"—"}].map(s=>(
-          <div key={s.label} style={{background:"var(--card-bg)",border:"1px solid var(--border)",borderRadius:12,padding:"12px 14px"}}>
-            <div style={{fontSize:9,color:"var(--text-muted)",fontFamily:"var(--font)",textTransform:"uppercase",letterSpacing:"0.5px",marginBottom:4}}>{s.label}</div>
-            <div style={{fontSize:15,fontWeight:800,fontFamily:"var(--font)"}}>{s.value}</div>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:12}}>
+        {[
+          {label:'Days Trained',value:daysTrained || '—'},
+          {label:'Total Volume',value:totalLoad ? `${Math.round(totalLoad).toLocaleString()} lbs` : '—'},
+          {label:'Heaviest Lift',value:heaviest ? `${heaviest} lbs` : '—'},
+          {label:'Most Trained',value:topMuscle ? `${topMuscle[0]} (${topMuscle[1]}×)` : '—'}
+        ].map(stat => (
+          <div key={stat.label} style={{background:'var(--card-bg)',border:'1px solid var(--border)',borderRadius:12,padding:'12px 14px'}}>
+            <div style={{fontSize:9,color:'var(--text-muted)',fontFamily:'var(--font)',textTransform:'uppercase',letterSpacing:'0.5px',marginBottom:4}}>{stat.label}</div>
+            <div style={{fontSize:15,fontWeight:800,fontFamily:'var(--font)'}}>{stat.value}</div>
           </div>
         ))}
       </div>
 
-      {/* Coverage Gaps */}
-      {gaps.length>0&&(
-        <div style={{background:"var(--card-bg)",border:"1px solid var(--border)",borderRadius:12,padding:"14px"}}>
-          <div style={{fontSize:11,fontWeight:700,fontFamily:"var(--font)",color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:"0.5px",marginBottom:8}}>Coverage Gaps ({gaps.length})</div>
-          <div style={{display:"flex",flexWrap:"wrap",gap:4}}>
-            {gaps.map(g=><span key={g} style={{fontSize:10,padding:"3px 8px",borderRadius:5,background:"rgba(239,68,68,0.08)",color:"rgba(239,68,68,0.65)",fontFamily:"var(--font)",fontWeight:600}}>{g}</span>)}
+      {gaps.length > 0 && (
+        <div style={{background:'var(--card-bg)',border:'1px solid var(--border)',borderRadius:12,padding:14}}>
+          <div style={{fontSize:11,fontWeight:700,fontFamily:'var(--font)',color:'var(--text-muted)',textTransform:'uppercase',letterSpacing:'0.5px',marginBottom:8}}>Coverage Gaps ({gaps.length})</div>
+          <div style={{display:'flex',flexWrap:'wrap',gap:4}}>
+            {gaps.map(muscle => <span key={muscle} style={{fontSize:10,padding:'3px 8px',borderRadius:5,background:'rgba(239,68,68,0.08)',color:'rgba(239,68,68,0.65)',fontFamily:'var(--font)',fontWeight:600}}>{muscle}</span>)}
           </div>
         </div>
       )}
