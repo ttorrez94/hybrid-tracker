@@ -13,7 +13,7 @@
 <title>Hybrid Training</title>
 <script>
 (function(){
-  var BUILD = "2026-07-28-v12-production";
+  var BUILD = "2026-07-28-v13-svg-fix";
   var KEY = "hybrid-training-build";
   try {
     if (localStorage.getItem(KEY) !== BUILD) {
@@ -478,11 +478,43 @@ h1,h2,h3,.screen-title,.brand-wordmark{font-family:'Space Grotesk',sans-serif}
 .production-content [style*="borderRadius:14"],.production-content [style*="borderRadius: 14"]{border-color:var(--line)!important;background:rgba(7,29,24,.82)!important}.production-content input,.production-content select,.production-content textarea{color:var(--cream)!important}.production-content button{box-shadow:none!important}.production-content [style*="fontSize:30"]{font-family:'Space Grotesk'!important}.production-content [style*="background:#22c55e"]{background:#235f41!important}.production-content [style*="color:#22c55e"]{color:#78a883!important}
 @media(max-width:380px){.brand-mark{width:126px;height:126px}.brand-wordmark strong{font-size:29px}.hero-card{padding:20px 15px}.hero-card h1{font-size:19px}.weekly-ring{width:78px;height:78px}.metric-grid{gap:5px}.readiness-layout{grid-template-columns:112px 1fr}.readiness-ring{width:106px;height:106px}.streak-card{grid-template-columns:78px 1fr 72px}}
 
+
+/* v13 SVG containment fix */
+.brand-mark{
+  display:block;
+  overflow:hidden !important;
+  contain:paint;
+  isolation:isolate;
+}
+.home-brand{
+  position:relative;
+  z-index:1;
+  overflow:hidden;
+}
+.home-brand .brand-logo{
+  max-width:100%;
+}
+.topo-bg{
+  display:none !important;
+}
+.teton-decoration{
+  width:82px;
+  height:58px;
+  color:#355f47;
+  opacity:.82;
+  justify-self:end;
+  overflow:visible;
+}
+.streak-card{
+  position:relative;
+  isolation:isolate;
+}
+
 </style>
 </head>
 <body>
 <div id="boot-status" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0d1410;color:#9ca3af;font:600 14px -apple-system,BlinkMacSystemFont,sans-serif;z-index:9999">Loading Hybrid Training…</div>
-<div id="root"></div><div id="build-version" style="display:none">2026-07-28-v12-production</div>
+<div id="root"></div><div id="build-version" style="display:none">2026-07-28-v13-svg-fix</div>
 <script>
 (function(){
   function showFatal(message, detail){
@@ -1038,29 +1070,43 @@ const tBtn = {
 // ─── COMPONENTS ───
 
 function BrandLogo({ compact=false, iconOnly=false }) {
+  const rawId = React.useId();
+  const clipId = `brandCircle-${String(rawId).replace(/[^a-zA-Z0-9_-]/g,"")}`;
   return (
     <div className={`brand-logo ${compact ? "compact" : ""} ${iconOnly ? "icon-only" : ""}`}>
-      <svg className="brand-mark" viewBox="0 0 160 160" role="img" aria-label="Grand Teton mountain logo">
+      <svg className="brand-mark" viewBox="0 0 160 160" role="img" aria-label="Grand Teton mountain logo" style={{overflow:"hidden"}}>
         <defs>
-          <clipPath id="brandCircle"><circle cx="80" cy="80" r="72"/></clipPath>
+          <clipPath id={clipId}><circle cx="80" cy="80" r="72"/></clipPath>
         </defs>
         <circle cx="80" cy="80" r="72" fill="none" stroke="currentColor" strokeWidth="3"/>
-        <g clipPath="url(#brandCircle)" fill="none" stroke="currentColor" strokeWidth="2.2" opacity=".94">
-          {[28,38,48,58,68,78,88].map(y=><line key={y} x1="16" y1={y} x2="144" y2={y}/>) }
+        <g clipPath={`url(#${clipId})`} fill="none" stroke="currentColor" strokeWidth="2.2" opacity=".94">
+          {[28,38,48,58,68,78,88].map(y=><line key={y} x1="16" y1={y} x2="144" y2={y}/>)}
         </g>
-        <g clipPath="url(#brandCircle)">
+        <g clipPath={`url(#${clipId})`}>
           <path d="M4 132 24 104 34 114 54 73 66 88 88 38 103 65 113 55 151 126 151 154 4 154Z" fill="#F2F3EF"/>
           <path d="m54 73 11 29 9-12 14-52 15 27-10-8-6 17-7-8-12 33-7-8-7 13-10-4 10-27Z" fill="#0A2420"/>
           <path d="m113 55 38 71-20-19-9 5-12-22-8 8-14-33 15 12 10-22Z" fill="#0A2420"/>
           <path d="M4 132 28 113 43 125 59 108 77 127 91 109 110 127 126 111 151 132V158H4Z" fill="#061815"/>
           <g fill="#061815">
-            <path d="m17 139 8-24 8 24h-5v15h-7v-15h-4Z"/><path d="m31 141 10-30 10 30h-6v16h-8v-16h-6Z"/>
-            <path d="m118 141 9-28 9 28h-6v16h-7v-16h-5Z"/><path d="m134 142 8-24 8 24h-5v15h-7v-15h-4Z"/>
+            <path d="m17 139 8-24 8 24h-5v15h-7v-15h-4Z"/>
+            <path d="m31 141 10-30 10 30h-6v16h-8v-16h-6Z"/>
+            <path d="m118 141 9-28 9 28h-6v16h-7v-16h-5Z"/>
+            <path d="m134 142 8-24 8 24h-5v15h-7v-15h-4Z"/>
           </g>
         </g>
       </svg>
       {!iconOnly && <div className="brand-wordmark"><strong>HYBRID</strong><span>TRAINING</span></div>}
     </div>
+  );
+}
+
+function TetonDecoration() {
+  return (
+    <svg className="teton-decoration" viewBox="0 0 100 64" aria-hidden="true">
+      <path d="M4 52 20 37 29 44 47 14 60 34 68 27 94 53" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="m47 14 5 15 5-7 3 12" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+      <path d="M12 57h78" fill="none" stroke="currentColor" strokeWidth="1.2" opacity=".55"/>
+    </svg>
   );
 }
 
@@ -1389,7 +1435,7 @@ function DashboardView({ state, history, monday, onOpenStrength, onOpenCardio })
       <button className="plan-row" onClick={onOpenStrength}><span className="plan-icon"><Icon name="strength" size={30}/></span><span><small>STRENGTH</small><strong>{state?.dayTitles?.[firstStrength?.k]||firstStrength?.d?.title||'Strength session'}</strong><em>45–60 min</em></span><Icon name="arrow"/></button>
       <button className="plan-row" onClick={onOpenCardio}><span className="plan-icon"><Icon name="cardio" size={30}/></span><span><small>CARDIO</small><strong>{firstCardio?.data?.mode||'Zone 2 Cardio'}</strong><em>{firstCardio?.data?.duration||'30–45 min'}</em></span><Icon name="arrow"/></button>
     </section>
-    <section className="streak-card"><div><span className="section-label">STREAK</span><strong>{doneDays}</strong><small>DAYS</small></div><div><h3>Keep it rolling.</h3><p>Consistency is where results are built.</p></div><BrandLogo iconOnly compact/></section>
+    <section className="streak-card"><div><span className="section-label">STREAK</span><strong>{doneDays}</strong><small>DAYS</small></div><div><h3>Keep it rolling.</h3><p>Consistency is where results are built.</p></div><TetonDecoration/></section>
   </div>;
 }
 
@@ -2647,7 +2693,7 @@ class AppErrorBoundary extends React.Component {
     if(!this.state.error) return this.props.children;
     const error = this.state.error;
     const details = [
-      "BUILD: 2026-07-28-v12-production",
+      "BUILD: 2026-07-28-v13-svg-fix",
       "MESSAGE: " + String(error?.message || error),
       "",
       "STACK:",
