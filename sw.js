@@ -1,1 +1,1 @@
-self.addEventListener('install',function(){self.skipWaiting()});self.addEventListener('activate',function(e){e.waitUntil(self.registration.unregister().then(function(){return self.clients.claim()}))});
+/* Service worker intentionally disabled in stable 2.0 build. */
